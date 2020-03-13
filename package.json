@@ -1,0 +1,46 @@
+{
+  "name": "ionic-datepicker",
+  "version": "0.0.1",
+  "description": "A datepicker component for ionic",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/ionic-datepicker/ionic-datepicker.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "devDependencies": {
+    "@types/luxon": "^1.21.0",
+    "@ionic/core": "^5.0.5",
+    "@stencil/core": "^1.9.2",
+    "js-datepicker": "^5.4.0",
+    "luxon": "^1.22.0"
+  },
+  "peerDependencies": {
+    "@ionic/core": "^5.0.5",
+    "js-datepicker": "^5.4.0",
+    "luxon": "^1.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codaline-io/ionic-datepicker.git"
+  },
+  "author": "Marcus Kirsch & Bengt Weiße GbR (codaline)",
+  "bugs": {
+    "url": "https://github.com/codaline-io/ionic-datepicker"
+  },
+  "homepage": "https://github.com/codaline-io/ionic-datepicker",
+  "license": "MIT"
+}

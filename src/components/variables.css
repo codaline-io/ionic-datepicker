@@ -1,0 +1,23 @@
+:root {
+  /******** spacing ********/
+  /*************************/
+
+  --base-spacing: var(--ion-padding, 16px);
+  --base-spacing-small: calc(var(--base-spacing) * 0.7);
+  --base-spacing-large: calc(var(--base-spacing) * 1.5);
+
+  /******** fonts **********/
+  /*************************/
+
+  --font-size-base: 14px;
+  --font-size-small: calc(var(--font-size-base) * 0.9);
+  --font-size-medium: calc(var(--font-size-base) * 1.2);
+  --font-size-large: calc(var(--font-size-base) * 1.4);
+  --text-color: var(--ion-color-secondary);
+
+  /******** datepicker **********/
+  /*************************/
+
+  --day-square-dimension: 33px;
+  --controls-padding: 5px;
+}

@@ -1,0 +1,20 @@
+@import '../variables.css';
+
+span {
+  cursor: pointer;
+}
+
+:host {
+  padding-right: var(--base-spacing-small);
+}
+
+input {
+  border: 0;
+}
+
+input[disabled],
+:host.disabled {
+  cursor: not-allowed;
+  background: transparent;
+  opacity: .3;
+}
