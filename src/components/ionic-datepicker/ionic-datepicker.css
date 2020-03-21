@@ -12,6 +12,10 @@ input {
   border: 0;
 }
 
+span.placeholder {
+  font-style: italic;
+}
+
 span.disabled,
 input[disabled],
 :host.disabled {
@@ -20,6 +24,6 @@ input[disabled],
   opacity: .3;
 }
 
-:host .ionic-datepicker-error {
+span.ionic-datepicker-error {
   color: var(--error-color);
 }

@@ -9,7 +9,7 @@
 
 | Property         | Attribute        | Description                                                                    | Type                                 | Default                                            |
 | ---------------- | ---------------- | ------------------------------------------------------------------------------ | ------------------------------------ | -------------------------------------------------- |
-| `defaultDate`    | `default-date`   | default date as iso date\|datetime string Default: today                       | `string`                             | `DateTime.local().toISODate()`                     |
+| `defaultDate`    | `default-date`   | default date as iso date\|datetime string Default: today                       | `string`                             | `undefined`                                        |
 | `disabled`       | `disabled`       | Flag if datepicking is disabled Default: disabled                              | `boolean`                            | `false`                                            |
 | `displayFormat`  | `display-format` | How the date should be formatted for display purposes Default: "DDD"           | `string`                             | `'DDD'`                                            |
 | `error`          | `error`          | Flag if it should be marked as error Default: false                            | `boolean`                            | `false`                                            |
@@ -17,7 +17,9 @@
 | `max`            | `max`            | Max selectable date as iso date\|datetime string Default: today + 100 years    | `string`                             | `DateTime.local().plus({years: 100}).toISODate()`  |
 | `min`            | `min`            | Min selectable date as iso date\|datetime string Default: today - 100 years    | `string`                             | `DateTime.local().minus({years: 100}).toISODate()` |
 | `pickerOptions`  | --               | Options for the js-datepicker Default: {}                                      | `object`                             | `{}`                                               |
+| `placeholder`    | `placeholder`    | placeholder if not required and empty Default: Datum                           | `string`                             | `'Datum'`                                          |
 | `popoverOptions` | --               | Change popover options, PopoverOptions \| {} Default: {}                       | `PopoverOptions<ComponentRef> \| {}` | `{}`                                               |
+| `required`       | `required`       | Required input Default: false                                                  | `boolean`                            | `false`                                            |
 
 
 ## Events

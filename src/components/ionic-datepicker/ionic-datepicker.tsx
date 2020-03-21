@@ -29,9 +29,15 @@ export class IonicDatepicker {
 
   /**
    * default date as iso date|datetime string
-   * Default: today
+   * Default: today when required
    */
-  @Prop() defaultDate = DateTime.local().toISODate();
+  @Prop() defaultDate?: string;
+
+  /**
+   * placeholder if not required and empty
+   * Default: Datum
+   */
+  @Prop() placeholder = 'Datum';
 
   /**
    * Max selectable date as iso date|datetime string
@@ -44,6 +50,12 @@ export class IonicDatepicker {
    * Default: today - 100 years
    */
   @Prop() min = DateTime.local().minus({years: 100}).toISODate();
+
+  /**
+   * Required input
+   * Default: false
+   */
+  @Prop() required = false;
 
   /**
    * Flag if it should be marked as error
@@ -71,7 +83,7 @@ export class IonicDatepicker {
   /**
    * Stores the current selected date as formatted string for display purposes
    */
-  @State() formattedDate: string;
+  @State() formattedDate: string = '';
   @State() date: DateTime
 
   private isDesktop = isPlatform('desktop');
@@ -82,8 +94,15 @@ export class IonicDatepicker {
   }
 
   componentWillLoad() {
-    this.date = DateTime.fromISO(this.defaultDate)
-    this.formattedDate = this.date.toFormat(this.displayFormat);
+    if (this.required) {
+      if (!this.defaultDate || !this.defaultDate.trim()) {
+        this.defaultDate = DateTime.local().toISODate();
+      }
+    }
+    if (this.defaultDate) {
+      this.date = DateTime.fromISO(this.defaultDate)
+      this.formattedDate = this.date.toFormat(this.displayFormat);
+    }
   }
 
   handleInput(ev: InputEvent) {
@@ -104,7 +123,7 @@ export class IonicDatepicker {
       ...this.popoverOptions,
       component: 'ionic-datepicker-popover',
       componentProps: {
-        selectedDate: this.date.toISODate(),
+        selectedDate: this.date ? this.date.toISODate() : null,
         disabled: this.disabled,
         displayFormat: this.displayFormat,
         max: this.max,
@@ -128,20 +147,23 @@ export class IonicDatepicker {
 
   render() {
     const disabledClassName = this.disabled ? 'disabled' : '';
+    const placeholderClassName = !this.formattedDate ? 'placeholder' : '';
     const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
 
     return <Host>
-      { this.isDesktop && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName}`}>
-        {this.formattedDate}
+      { this.isDesktop && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
+        {this.formattedDate || this.placeholder}
       </span> }
       { !this.isDesktop && <input
         type='date'
         disabled={this.disabled}
         class={`${disabledClassName} ${errorClassName}`}
+        placeholder={this.placeholder}
         onInput={this.handleInput}
         max={this.max}
         min={this.min}
-        value={this.date.toISODate()}
+        required={this.required}
+        value={this.date ? this.date.toISODate() : ''}
       /> }
     </Host>;
   }

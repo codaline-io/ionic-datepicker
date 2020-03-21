@@ -9,9 +9,9 @@ import { PopoverOptions, } from "@ionic/core";
 export namespace Components {
     interface IonicDatepicker {
         /**
-          * default date as iso date|datetime string Default: today
+          * default date as iso date|datetime string Default: today when required
          */
-        "defaultDate": string;
+        "defaultDate"?: string;
         /**
           * Flag if datepicking is disabled Default: disabled
          */
@@ -41,9 +41,17 @@ export namespace Components {
          */
         "pickerOptions": object;
         /**
+          * placeholder if not required and empty Default: Datum
+         */
+        "placeholder": string;
+        /**
           * Change popover options, PopoverOptions | {} Default: {}
          */
         "popoverOptions": PopoverOptions | {};
+        /**
+          * Required input Default: false
+         */
+        "required": boolean;
     }
     interface IonicDatepickerPopover {
         /**
@@ -89,7 +97,7 @@ declare global {
 declare namespace LocalJSX {
     interface IonicDatepicker {
         /**
-          * default date as iso date|datetime string Default: today
+          * default date as iso date|datetime string Default: today when required
          */
         "defaultDate"?: string;
         /**
@@ -125,9 +133,17 @@ declare namespace LocalJSX {
          */
         "pickerOptions"?: object;
         /**
+          * placeholder if not required and empty Default: Datum
+         */
+        "placeholder"?: string;
+        /**
           * Change popover options, PopoverOptions | {} Default: {}
          */
         "popoverOptions"?: PopoverOptions | {};
+        /**
+          * Required input Default: false
+         */
+        "required"?: boolean;
     }
     interface IonicDatepickerPopover {
         /**

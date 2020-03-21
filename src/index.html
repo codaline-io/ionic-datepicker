@@ -2,9 +2,9 @@
 <html dir="ltr" lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css">
   <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
 
   <title>Stencil Component Starter</title>
   <script src="https://unpkg.com/luxon@1.22.0/build/global/luxon.min.js"></script>
@@ -53,12 +53,17 @@
           </ion-label>
           <ionic-datepicker id='maxmin'></ionic-datepicker>
         </ion-item>
-
         <ion-item>
           <ion-label>
             error
           </ion-label>
           <ionic-datepicker error="true" id='error'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            required
+          </ion-label>
+          <ionic-datepicker required="true" id='error'></ionic-datepicker>
         </ion-item>
       </ion-list>
     </ion-content>
