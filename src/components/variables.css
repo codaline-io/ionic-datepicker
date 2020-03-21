@@ -17,7 +17,16 @@
 
   /******** datepicker **********/
   /*************************/
+  --popover-width: 250px;
 
   --day-square-dimension: 33px;
+
   --controls-padding: 5px;
+  --controls-backgroud: var(--ion-color-white, #fff);
+
+  --square-active-color:  var(--ion-color-white, #fff);
+  --square-active-background:  var(--ion-color-secondary, #3880ff);
+
+  --square-current-color:  var(--ion-color-white, #fff);
+  --square-current-background:  var(--ion-color-secondary, #92949c);
 }

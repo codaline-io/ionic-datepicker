@@ -3,6 +3,13 @@
 /* DatePicker */
 /* -------------------------------------------------- */
 
+ion-popover.datepicker-popover,
+ion-popover.sc-ion-popover-md-h.datepicker-popover {
+  --width: var(--popover-width);
+  --max-width: var(--popover-width);
+  --min-width: var(--popover-width);
+}
+
 ionic-datepicker-popover .qs-datepicker-container {
   border: 0;
   border-radius: 0;
@@ -12,7 +19,7 @@ ionic-datepicker-popover .qs-datepicker-container {
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-controls {
-  background-color: var(--ion-color-white);
+  background-color: var(--controls-background);
   padding: var(--controls-padding);
 }
 
@@ -31,8 +38,13 @@ ionic-datepicker-popover .qs-datepicker .qs-square.qs-day {
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-active {
-  background-color: var(--ion-color-secondary);
-  color: var(--ion-color-white);
+  background-color: var(--square-active-background);
+  color: var(--square-active-color);
+}
+
+ionic-datepicker-popover .qs-datepicker .qs-square.qs-current {
+  background-color: var(--square-current-background);
+  color: var(--square-current-color);
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-current .qs-num {

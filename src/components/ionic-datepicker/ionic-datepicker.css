@@ -12,6 +12,7 @@ input {
   border: 0;
 }
 
+span.disabled,
 input[disabled],
 :host.disabled {
   cursor: not-allowed;

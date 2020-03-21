@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { PopoverOptions, } from "@ionic/core";
 export namespace Components {
     interface IonicDatepicker {
         /**
@@ -39,6 +40,10 @@ export namespace Components {
           * Options for the js-datepicker Default: {}
          */
         "pickerOptions": object;
+        /**
+          * Change popover options, PopoverOptions | {} Default: {}
+         */
+        "popoverOptions": PopoverOptions | {};
     }
     interface IonicDatepickerPopover {
         /**
@@ -119,6 +124,10 @@ declare namespace LocalJSX {
           * Options for the js-datepicker Default: {}
          */
         "pickerOptions"?: object;
+        /**
+          * Change popover options, PopoverOptions | {} Default: {}
+         */
+        "popoverOptions"?: PopoverOptions | {};
     }
     interface IonicDatepickerPopover {
         /**

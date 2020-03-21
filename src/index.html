@@ -13,8 +13,38 @@
 
 </head>
 <body>
+  <ion-app>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+          Ionic Datepicker
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            Datepicker mode: ios
+          </ion-label>
+          <ionic-datepicker id='ios' popoverOptions={{mode: 'ios'}}></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Datepicker mode: md
+          </ion-label>
+          <ionic-datepicker id='md' popoverOptions={{mode: 'md'}}></ionic-datepicker>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-app>
 
-  <ionic-datepicker></ionic-datepicker>
+  <script>
+    const ios = document.getElementById('ios')
+    const md = document.getElementById('md')
 
+    ios.popoverOptions = {mode: 'ios'}
+    md.popoverOptions = {mode: 'md'}
+  </script>
 </body>
 </html>

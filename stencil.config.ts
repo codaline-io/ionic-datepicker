@@ -1,9 +1,6 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  bundles: [{
-    components: ['ionic-datepicker', 'ionic-datepicker-popover']
-  }],
   namespace: 'ionic-datepicker',
   outputTargets: [
     {

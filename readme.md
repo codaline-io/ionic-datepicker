@@ -46,15 +46,15 @@ npm test
 ### Script tag
 
 - [Publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- Put a script tag similar to this `<script src='https://unpkg.com/ionic-datepicker@0.0.1/dist/ionic-datepicker.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='https://unpkg.com/@codaline-io/ionic-datepicker@0.0.3/dist/ionic-datepicker.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### Node Modules
-- Run `npm install ionic-datepicker --save`
+- Run `npm install @codaline-io/ionic-datepicker --save`
 - Put a script tag similar to this `<script src='node_modules/ionic-datepicker/dist/ionic-datepicker.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### In a stencil-starter app
-- Run `npm install ionic-datepicker --save`
-- Add an import to the npm packages `import ionic-datepicker;`
+- Run `npm install @codaline-io/ionic-datepicker --save`
+- Add an import to the npm packages `import @codaline-io/ionic-datepicker;`
 - Then you can use the element anywhere in your template, JSX, html etc
