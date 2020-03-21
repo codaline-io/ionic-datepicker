@@ -23,8 +23,8 @@
   --square-border-radius: 5px;
   --square-font-weight: normal;
 
-  --square-hover-color: var(--ion-color-secondary, #fff);
-  --square-hover-background: var(--ion-color-white, #3dc2ff);
+  --square-hover-color: var(--ion-color-white, #fff);
+  --square-hover-background: var(--ion-color-secondary, #3dc2ff);
 
   --controls-padding: 5px;
   --controls-backgroud: var(--ion-color-white, #fff);
