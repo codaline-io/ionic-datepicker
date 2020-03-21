@@ -1,7 +1,9 @@
-import { isPlatform, popoverController, OverlayEventDetail, PopoverOptions } from '@ionic/core'
-import { Component, Prop, h, Host, Event, State } from '@stencil/core';
-import { DateTime } from 'luxon';
-import { EventEmitter } from '@ionic/core/dist/types/stencil.core';
+import { OverlayEventDetail, PopoverOptions } from '@ionic/core'
+import { Component, EventEmitter, Prop, h, Host, Event, State } from '@stencil/core';
+
+const DateTime = (window as any).luxon.DateTime
+
+const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches)
 
 @Component({
   tag: 'ionic-datepicker',
@@ -84,9 +86,9 @@ export class IonicDatepicker {
    * Stores the current selected date as formatted string for display purposes
    */
   @State() formattedDate: string = '';
-  @State() date: DateTime
+  @State() date: any
 
-  private isDesktop = isPlatform('desktop');
+  private isDesktop = isDesktop();
 
   constructor() {
     this.handleDateClick = this.handleDateClick.bind(this)
@@ -119,7 +121,7 @@ export class IonicDatepicker {
       return;
     }
 
-    const popover = await popoverController.create({
+    const popover = Object.assign(document.createElement('ion-popover'), {
       ...this.popoverOptions,
       component: 'ionic-datepicker-popover',
       componentProps: {
@@ -133,6 +135,7 @@ export class IonicDatepicker {
       cssClass: 'datepicker-popover',
       event: event
     });
+    document.body.appendChild(popover);
     await popover.present();
 
     const { data }: OverlayEventDetail<{date?: string}> = await popover.onWillDismiss();

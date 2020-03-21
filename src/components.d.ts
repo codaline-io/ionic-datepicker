@@ -31,11 +31,11 @@ export namespace Components {
         /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
-        "max": string;
+        "max": any;
         /**
           * Min selectable date as iso date|datetime string Default: today - 100 years
          */
-        "min": string;
+        "min": any;
         /**
           * Options for the js-datepicker Default: {}
          */
@@ -61,11 +61,11 @@ export namespace Components {
         /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
-        "max": string;
+        "max": any;
         /**
           * Min selectable date as iso date|datetime string Default: today - 100 years
          */
-        "min": string;
+        "min": any;
         /**
           * Options for the js-datepicker Default: {}
          */
@@ -73,7 +73,7 @@ export namespace Components {
         /**
           * selected default date as iso date|datetime string Default: today
          */
-        "selectedDate": string;
+        "selectedDate": any;
     }
 }
 declare global {
@@ -119,11 +119,11 @@ declare namespace LocalJSX {
         /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
-        "max"?: string;
+        "max"?: any;
         /**
           * Min selectable date as iso date|datetime string Default: today - 100 years
          */
-        "min"?: string;
+        "min"?: any;
         /**
           * Event that emits the iso date string everytime the date changes
          */
@@ -153,11 +153,11 @@ declare namespace LocalJSX {
         /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
-        "max"?: string;
+        "max"?: any;
         /**
           * Min selectable date as iso date|datetime string Default: today - 100 years
          */
-        "min"?: string;
+        "min"?: any;
         /**
           * Options for the js-datepicker Default: {}
          */
@@ -165,7 +165,7 @@ declare namespace LocalJSX {
         /**
           * selected default date as iso date|datetime string Default: today
          */
-        "selectedDate"?: string;
+        "selectedDate"?: any;
     }
     interface IntrinsicElements {
         "ionic-datepicker": IonicDatepicker;

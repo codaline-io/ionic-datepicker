@@ -1,7 +1,6 @@
-import { popoverController } from '@ionic/core';
 import { Component, h, Prop, Watch } from '@stencil/core';
-import jsDatepicker from 'js-datepicker'
-import { DateTime } from 'luxon';
+
+const DateTime = (window as any).luxon.DateTime
 
 @Component({
   tag: 'ionic-datepicker-popover',
@@ -48,7 +47,7 @@ export class IonicDatepickerPopover {
   @Prop() min = DateTime.local().minus({years: 100}).toISODate();
 
   componentDidLoad() {
-    this.picker = jsDatepicker(this.el, { ...{
+    this.picker = (window as any).datepicker(this.el, { ...{
       alwaysShow: true,
       customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
       customMonths: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
@@ -57,7 +56,7 @@ export class IonicDatepickerPopover {
       disableMobile: true,
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
-      onSelect: (instance: { dateSelected: Date }) => popoverController.dismiss({ date: instance.dateSelected.toISOString() }),
+      onSelect: (instance: { dateSelected: Date }) => document.querySelector('ion-popover').dismiss({ date: instance.dateSelected.toISOString() }),
       overlayButton: 'Okay',
       overlayPlaceholder: 'Jahr',
       showAllDates: true,
