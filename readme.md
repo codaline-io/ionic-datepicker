@@ -6,8 +6,9 @@ This is a datepicker component for ionic projects. It is using js-datepicker in 
 
 ## Using this component
 
-- install `js-datepicker`
-- import or globally load `js-datepicker` css
+- install `js-datepicker` and `luxon`
+- make them globally available (on `window`) load `js-datepicker` css
+- keep in mind that it is only usable in an ionic project
 - use `ionic-datepicker` as tag on your ionic pwa
 - for configration check the `src/components/ionic-datepicker/readme`
 
