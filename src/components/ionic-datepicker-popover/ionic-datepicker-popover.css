@@ -36,7 +36,7 @@ ionic-datepicker-popover .qs-datepicker .qs-square {
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-day {
   font-weight: var(--day-square-font-weight);
 }
-
+ionic-datepicker-popover .qs-datepicker .qs-square.qs-current.qs-active,
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-active {
   background-color: var(--square-active-background);
   color: var(--square-active-color);
