@@ -28,13 +28,13 @@ ionic-datepicker-popover .qs-datepicker .qs-squares {
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-square {
-  border-radius: 0;
+  border-radius: var(--day-square-border-radius);
   height: var(--day-square-dimension);
   width: var(--day-square-dimension);
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-day {
-  font-weight: normal;
+  font-weight: var(--day-square-font-weight);
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-active {

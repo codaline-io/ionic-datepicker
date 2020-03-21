@@ -25,8 +25,11 @@
   --controls-backgroud: var(--ion-color-white, #fff);
 
   --square-active-color:  var(--ion-color-white, #fff);
-  --square-active-background:  var(--ion-color-secondary, #3880ff);
+  --square-active-background:  var(--ion-color-primary, #3880ff);
 
   --square-current-color:  var(--ion-color-white, #fff);
-  --square-current-background:  var(--ion-color-secondary, #92949c);
+  --square-current-background:  var(--ion-color-medium, #92949c);
+
+  --day-square-border-radius: 5px;
+  --day-square-font-weight: normal;
 }

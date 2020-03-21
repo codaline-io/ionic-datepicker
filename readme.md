@@ -4,44 +4,12 @@
 
 This is a datepicker component for ionic projects. It is using js-datepicker in an ion-popover on desktop environments and the native date input on mobile devices.
 
-# Stencil
-
-Stencil is a compiler for building fast web apps using Web Components.
-
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
-
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
-
-## Development
-
-To start building a new web component using Stencil, clone this repo to a new directory:
-
-```bash
-git clone https://github.com/ionic-team/stencil-component-starter.git my-component
-cd my-component
-git remote rm origin
-```
-
-and run:
-
-```bash
-npm install
-npm start
-```
-
-To build the component for production, run:
-
-```bash
-npm run build
-```
-
-To run the unit tests for the components, run:
-
-```bash
-npm test
-```
-
 ## Using this component
+
+- install `js-datepicker`
+- import or globally load `js-datepicker` css
+- use `ionic-datepicker` as tag on your ionic pwa
+- for configration check the `src/components/ionic-datepicker/readme`
 
 ### Script tag
 
@@ -51,7 +19,7 @@ npm test
 
 ### Node Modules
 - Run `npm install @codaline-io/ionic-datepicker --save`
-- Put a script tag similar to this `<script src='node_modules/ionic-datepicker/dist/ionic-datepicker.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='node_modules/@codaline-io/ionic-datepicker/dist/ionic-datepicker.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### In a stencil-starter app

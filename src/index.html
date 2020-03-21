@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
 
   <title>Stencil Component Starter</title>
-
+  <script src="https://unpkg.com/luxon@1.22.0/build/global/luxon.min.js"></script>
   <script type="module" src="/build/ionic-datepicker.esm.js"></script>
   <script nomodule src="/build/ionic-datepicker.js"></script>
 
@@ -25,15 +25,33 @@
       <ion-list>
         <ion-item>
           <ion-label>
-            Datepicker mode: ios
+            mode: ios
           </ion-label>
-          <ionic-datepicker id='ios' popoverOptions={{mode: 'ios'}}></ionic-datepicker>
+          <ionic-datepicker id='ios'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
-            Datepicker mode: md
+            mode: md
           </ion-label>
-          <ionic-datepicker id='md' popoverOptions={{mode: 'md'}}></ionic-datepicker>
+          <ionic-datepicker id='md'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            disabled
+          </ion-label>
+          <ionic-datepicker default-date='2019-12-12' id='disabled'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            custom displayFormat
+          </ion-label>
+          <ionic-datepicker display-format='yyyy-LL-dd' id='format'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            min max
+          </ion-label>
+          <ionic-datepicker id='maxmin'></ionic-datepicker>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -42,9 +60,15 @@
   <script>
     const ios = document.getElementById('ios')
     const md = document.getElementById('md')
+    const disabled = document.getElementById('disabled')
+    const format = document.getElementById('format')
+    const maxmin = document.getElementById('maxmin')
 
     ios.popoverOptions = {mode: 'ios'}
     md.popoverOptions = {mode: 'md'}
+    disabled.disabled = true
+    maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
+    maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
   </script>
 </body>
 </html>
