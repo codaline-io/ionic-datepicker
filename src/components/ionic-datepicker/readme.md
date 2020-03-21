@@ -9,7 +9,7 @@
 
 | Property         | Attribute        | Description                                                                    | Type                                 | Default                                            |
 | ---------------- | ---------------- | ------------------------------------------------------------------------------ | ------------------------------------ | -------------------------------------------------- |
-| `defaultDate`    | `default-date`   | default date as iso date\|datetime string Default: today                       | `string`                             | `undefined`                                        |
+| `defaultDate`    | `default-date`   | default date as iso date\|datetime string Default: today when required         | `string`                             | `undefined`                                        |
 | `disabled`       | `disabled`       | Flag if datepicking is disabled Default: disabled                              | `boolean`                            | `false`                                            |
 | `displayFormat`  | `display-format` | How the date should be formatted for display purposes Default: "DDD"           | `string`                             | `'DDD'`                                            |
 | `error`          | `error`          | Flag if it should be marked as error Default: false                            | `boolean`                            | `false`                                            |
