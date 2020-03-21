@@ -1,5 +1,5 @@
 {
-  "name": "ionic-datepicker",
+  "name": "@codaline-io/ionic-datepicker",
   "version": "0.0.1",
   "description": "A datepicker component for ionic",
   "main": "dist/index.js",
@@ -42,5 +42,6 @@
     "url": "https://github.com/codaline-io/ionic-datepicker"
   },
   "homepage": "https://github.com/codaline-io/ionic-datepicker",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }
