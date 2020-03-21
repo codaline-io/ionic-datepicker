@@ -72,9 +72,9 @@ export class IonicDatepicker {
    * Stores the current selected date as formatted string for display purposes
    */
   @State() formattedDate: string;
+  @State() date: DateTime
 
   private isDesktop = isPlatform('desktop');
-  private date: DateTime
 
   constructor() {
     this.handleDateClick = this.handleDateClick.bind(this)
@@ -128,7 +128,7 @@ export class IonicDatepicker {
 
   render() {
     const disabledClassName = this.disabled ? 'disabled' : '';
-    const errorClassName = this.error && !!this.errorClass ? this.error : '';
+    const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
 
     return <Host>
       { this.isDesktop && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName}`}>
@@ -141,7 +141,7 @@ export class IonicDatepicker {
         onInput={this.handleInput}
         max={this.max}
         min={this.min}
-        value={this.defaultDate}
+        value={this.date.toISODate()}
       /> }
     </Host>;
   }

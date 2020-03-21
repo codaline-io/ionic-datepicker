@@ -48,7 +48,6 @@ export class IonicDatepickerPopover {
   @Prop() min = DateTime.local().minus({years: 100}).toISODate();
 
   componentDidLoad() {
-    console.log(this.selectedDate)
     this.picker = jsDatepicker(this.el, { ...{
       alwaysShow: true,
       customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],

@@ -19,3 +19,7 @@ input[disabled],
   background: transparent;
   opacity: .3;
 }
+
+:host .ionic-datepicker-error {
+  color: var(--error-color);
+}

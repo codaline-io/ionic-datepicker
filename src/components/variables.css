@@ -13,7 +13,8 @@
   --font-size-small: calc(var(--font-size-base) * 0.9);
   --font-size-medium: calc(var(--font-size-base) * 1.2);
   --font-size-large: calc(var(--font-size-base) * 1.4);
-  --text-color: var(--ion-color-secondary);
+  --text-color: var(--ion-text-color, #424242);
+  --error-color: var(--ion-color-danger, #eb445a);
 
   /******** datepicker **********/
   /*************************/
@@ -27,7 +28,7 @@
   --square-hover-background: var(--ion-color-secondary, #3dc2ff);
 
   --controls-padding: 5px;
-  --controls-backgroud: var(--ion-color-white, #fff);
+  --controls-background: var(--ion-color-white, #fff);
 
   --square-active-color: var(--ion-color-white, #fff);
   --square-active-background: var(--ion-color-primary, #3880ff);
