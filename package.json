@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/luxon": "^1.21.0",
     "@ionic/core": "^5.0.5",
-    "@stencil/core": "^1.9.2",
+    "@stencil/core": "^1.11.0",
     "js-datepicker": "^5.4.0",
     "luxon": "^1.22.0"
   },

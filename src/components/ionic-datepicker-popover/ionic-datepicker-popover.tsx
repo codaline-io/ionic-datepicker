@@ -57,9 +57,7 @@ export class IonicDatepickerPopover {
       disableMobile: true,
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
-      onSelect: (instance: { dateSelected: Date}) => {
-        popoverController.dismiss({ date: instance.dateSelected })
-      },
+      onSelect: (instance: { dateSelected: Date }) => popoverController.dismiss({ date: instance.dateSelected.toISOString() }),
       overlayButton: 'Okay',
       overlayPlaceholder: 'Jahr',
       showAllDates: true,
