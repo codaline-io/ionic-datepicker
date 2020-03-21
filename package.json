@@ -42,8 +42,5 @@
     "url": "https://github.com/codaline-io/ionic-datepicker"
   },
   "homepage": "https://github.com/codaline-io/ionic-datepicker",
-  "license": "MIT",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
+  "license": "MIT"
 }
