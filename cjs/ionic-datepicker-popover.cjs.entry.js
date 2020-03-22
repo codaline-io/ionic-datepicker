@@ -44,12 +44,13 @@ const IonicDatepickerPopover = class {
         }
     }
     componentDidLoad() {
+        const date = this.selectedDate ? new Date(this.selectedDate) : null;
         this.picker = window.datepicker(this.el, Object.assign({
             alwaysShow: true,
             customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
             customMonths: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
             customOverlayMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-            dateSelected: this.selectedDate ? new Date(this.selectedDate) : new Date(),
+            dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : new Date(),
             maxDate: new Date(this.max),
             minDate: new Date(this.min),
             onSelect: (instance) => {
