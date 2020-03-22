@@ -71,6 +71,12 @@
           </ion-label>
           <ionic-datepicker required="true" id='error'></ionic-datepicker>
         </ion-item>
+        <ion-item>
+          <ion-label>
+            native on mobile devices
+          </ion-label>
+          <ionic-datepicker id='nativeOnMobile'></ionic-datepicker>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-app>
@@ -81,12 +87,14 @@
     const disabled = document.getElementById('disabled')
     const format = document.getElementById('format')
     const maxmin = document.getElementById('maxmin')
+    const nativeOnMobile = document.getElementById('nativeOnMobile')
 
     ios.popoverOptions = {mode: 'ios'}
     md.popoverOptions = {mode: 'md'}
     disabled.disabled = true
     maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
     maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
+    nativeOnMobile.nativeOnMobile = false
   </script>
 </body>
 </html>

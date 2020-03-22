@@ -37,6 +37,10 @@ export namespace Components {
          */
         "min": any;
         /**
+          * nativeOnMobile if native date picker is used on mobile devices Default: false
+         */
+        "nativeOnMobile": boolean;
+        /**
           * Options for the js-datepicker Default: {}
          */
         "pickerOptions": object;
@@ -124,6 +128,10 @@ declare namespace LocalJSX {
           * Min selectable date as iso date|datetime string Default: today - 100 years
          */
         "min"?: any;
+        /**
+          * nativeOnMobile if native date picker is used on mobile devices Default: false
+         */
+        "nativeOnMobile"?: boolean;
         /**
           * Event that emits the iso date string everytime the date changes
          */

@@ -53,10 +53,11 @@ export class IonicDatepickerPopover {
       customMonths: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
       customOverlayMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
       dateSelected: this.selectedDate ? new Date(this.selectedDate) : new Date(),
-      disableMobile: true,
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
-      onSelect: (instance: { dateSelected: Date }) => document.querySelector('ion-popover').dismiss({ date: instance.dateSelected.toISOString() }),
+      onSelect: (instance: { dateSelected: Date }) => {
+        document.querySelector('ion-popover').dismiss({ date: instance.dateSelected.toISOString() })
+      },
       overlayButton: 'Okay',
       overlayPlaceholder: 'Jahr',
       showAllDates: true,

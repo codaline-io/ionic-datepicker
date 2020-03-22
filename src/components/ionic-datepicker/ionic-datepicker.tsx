@@ -42,6 +42,12 @@ export class IonicDatepicker {
   @Prop() placeholder = 'Datum';
 
   /**
+   * nativeOnMobile if native date picker is used on mobile devices
+   * Default: false
+   */
+  @Prop() nativeOnMobile = false;
+
+  /**
    * Max selectable date as iso date|datetime string
    * Default: today + 100 years
    */
@@ -108,7 +114,7 @@ export class IonicDatepicker {
   }
 
   handleInput(ev: InputEvent) {
-    if (!this.isDesktop) {
+    if (this.disabled) {
       this.date = DateTime.fromISO((ev.target as any).value as string);
       this.formattedDate = this.date.toFormat(this.displayFormat);
 
@@ -117,7 +123,7 @@ export class IonicDatepicker {
   }
 
   async handleDateClick(event: MouseEvent) {
-    if (!this.isDesktop || this.disabled) {
+    if (this.disabled) {
       return;
     }
 
@@ -154,10 +160,10 @@ export class IonicDatepicker {
     const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
 
     return <Host>
-      { this.isDesktop && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
+      { (this.isDesktop || !this.nativeOnMobile) && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
         {this.formattedDate || this.placeholder}
       </span> }
-      { !this.isDesktop && <input
+      { !this.isDesktop && this.nativeOnMobile && <input
         type='date'
         disabled={this.disabled}
         class={`${disabledClassName} ${errorClassName}`}
