@@ -1,5 +1,5 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
-import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, DEFAULT_MAX, DEFAULT_MIN } from '../utils';
+import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, DEFAULT_MAX, DEFAULT_MIN, toISODate } from '../utils';
 
 @Component({
   tag: 'ionic-datepicker-popover',
@@ -56,7 +56,7 @@ export class IonicDatepickerPopover {
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
       onSelect: (instance: { dateSelected: Date }) => {
-        document.querySelector('ion-popover').dismiss({ date: instance.dateSelected.toISOString() })
+        document.querySelector('ion-popover').dismiss({ date: toISODate(instance.dateSelected.toISOString()) })
       },
       overlayButton: DEFAULT_OKAY_LABEL,
       overlayPlaceholder: DEFAULT_YEAR_LABEL,

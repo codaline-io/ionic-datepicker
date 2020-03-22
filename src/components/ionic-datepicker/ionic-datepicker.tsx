@@ -1,6 +1,6 @@
 import { OverlayEventDetail, PopoverOptions, Mode } from '@ionic/core'
 import { Component, EventEmitter, Prop, h, Host, Event, State } from '@stencil/core';
-import { DEFAULT_MAX, DEFAULT_MIN, DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime, toISODate } from '../utils';
+import { DEFAULT_MAX, DEFAULT_MIN, DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime } from '../utils';
 
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches)
 
@@ -145,10 +145,6 @@ export class IonicDatepicker {
    * Stores the current selected date as formatted string for display purposes
    */
   @State() formattedDate: string = '';
-  /**
-   * Stores the current selected date as iso string
-   */
-  @State() date: string
 
   private isDesktop = isDesktop();
 
@@ -160,17 +156,16 @@ export class IonicDatepicker {
   componentWillLoad() {
     if (this.required) {
       if (!this.defaultDate || !this.defaultDate.trim()) {
-        this.defaultDate = toISODate(new Date().toISOString());
+        this.defaultDate = new Date().toISOString();
       }
     }
     if (this.defaultDate) {
-      this.date = this.defaultDate
-      this.formatDate()
+      this.formatDate(this.defaultDate)
     }
   }
 
-  private formatDate() {
-    this.formattedDate = renderDatetime(this.displayFormat, this.date, {
+  private formatDate(date: string) {
+    this.formattedDate = renderDatetime(this.displayFormat, date, {
       dayNames: this.dayNames,
       dayShortNames: this.dayShortNames,
       monthNames: this.monthNames,
@@ -180,10 +175,8 @@ export class IonicDatepicker {
 
   handleInput(ev: CustomEvent<{ value: string }>) {
     if (!this.disabled) {
-      this.date = ev.detail.value;
-      this.formatDate();
-
-      this.changes.emit(toISODate(this.date));
+      this.formatDate(ev.detail.value);
+      this.changes.emit(ev.detail.value);
     }
   }
 
@@ -196,7 +189,7 @@ export class IonicDatepicker {
       ...this.ionPopoverOptions,
       component: 'ionic-datepicker-popover',
       componentProps: {
-        selectedDate: this.date || null,
+        selectedDate: this.defaultDate || null,
         disabled: this.disabled,
         displayFormat: this.displayFormat,
         max: this.max,
@@ -220,10 +213,7 @@ export class IonicDatepicker {
     const { data }: OverlayEventDetail<{date?: string}> = await popover.onWillDismiss();
 
     if (data && data.date) {
-      this.date = data.date;
-      this.formatDate();
-      const dateString = toISODate(this.date);
-      this.changes.emit(dateString);
+      this.formatDate(data.date);
     }
   }
 
