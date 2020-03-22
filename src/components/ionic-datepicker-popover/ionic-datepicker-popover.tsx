@@ -1,4 +1,5 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
+import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES } from '../utils';
 
 const DateTime = (window as any).luxon.DateTime
 
@@ -50,17 +51,17 @@ export class IonicDatepickerPopover {
     const date = this.selectedDate ? new Date(this.selectedDate) : null
     this.picker = (window as any).datepicker(this.el, { ...{
       alwaysShow: true,
-      customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-      customMonths: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-      customOverlayMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+      customDays: DAY_SHORT_NAMES,
+      customMonths: MONTH_NAMES,
+      customOverlayMonths: MONTH_SHORT_NAMES,
       dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : new Date(),
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
       onSelect: (instance: { dateSelected: Date }) => {
         document.querySelector('ion-popover').dismiss({ date: instance.dateSelected.toISOString() })
       },
-      overlayButton: 'Okay',
-      overlayPlaceholder: 'Jahr',
+      overlayButton: DEFAULT_OKAY_LABEL,
+      overlayPlaceholder: DEFAULT_YEAR_LABEL,
       showAllDates: true,
       startDay: 1
     }, ...this.pickerOptions});

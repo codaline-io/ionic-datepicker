@@ -5,9 +5,21 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { PopoverOptions, } from "@ionic/core";
+import { Mode, PopoverOptions, } from "@ionic/core";
 export namespace Components {
     interface IonicDatepicker {
+        /**
+          * Set cancel label Default: 'Abbrechen'
+         */
+        "cancelLabel": string;
+        /**
+          * Possibility to overwrite day names Default: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+         */
+        "dayNames": string[];
+        /**
+          * Possibility to overwrite day shortnames Default: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+         */
+        "dayShortNames": string[];
         /**
           * default date as iso date|datetime string Default: today when required
          */
@@ -17,7 +29,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * How the date should be formatted for display purposes Default: "DDD"
+          * How the date should be formatted for ion-datetime for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats) Default: "DD. MMMM YYYY"
          */
         "displayFormat": string;
         /**
@@ -29,6 +41,14 @@ export namespace Components {
          */
         "errorClass": string;
         /**
+          * ionDateTimeOnMobile if ion datetime picker is used on mobile devices Default: false
+         */
+        "ionDateTimeOnMobile": boolean;
+        /**
+          * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'> Default: {}
+         */
+        "ionPopoverOptions": Omit<PopoverOptions, "mode" | "component" | "componentProps">;
+        /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
         "max": any;
@@ -37,9 +57,25 @@ export namespace Components {
          */
         "min": any;
         /**
-          * nativeOnMobile if native date picker is used on mobile devices Default: false
+          * Changes the mode of ion-popover and ion-datetime> Default: undefined
          */
-        "nativeOnMobile": boolean;
+        "mode"?: Mode;
+        /**
+          * Possibility to overwrite month names Default: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+         */
+        "monthNames": string[];
+        /**
+          * Possibility to overwrite month shortnames Default: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+         */
+        "monthShortNames": string[];
+        /**
+          * Set okay label Default: 'Okay'
+         */
+        "okayLabel": string;
+        /**
+          * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats) Default: "DD. MMMM YYYY"
+         */
+        "pickerFormat": string;
         /**
           * Options for the js-datepicker Default: {}
          */
@@ -49,13 +85,13 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * Change ionic popover options, PopoverOptions | {} Default: {}
-         */
-        "popoverOptions": PopoverOptions | {};
-        /**
           * Required input Default: false
          */
         "required": boolean;
+        /**
+          * Set year label Default: 'Jahr'
+         */
+        "yearLabel": string;
     }
     interface IonicDatepickerPopover {
         /**
@@ -101,6 +137,18 @@ declare global {
 declare namespace LocalJSX {
     interface IonicDatepicker {
         /**
+          * Set cancel label Default: 'Abbrechen'
+         */
+        "cancelLabel"?: string;
+        /**
+          * Possibility to overwrite day names Default: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+         */
+        "dayNames"?: string[];
+        /**
+          * Possibility to overwrite day shortnames Default: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+         */
+        "dayShortNames"?: string[];
+        /**
           * default date as iso date|datetime string Default: today when required
          */
         "defaultDate"?: string;
@@ -109,7 +157,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * How the date should be formatted for display purposes Default: "DDD"
+          * How the date should be formatted for ion-datetime for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats) Default: "DD. MMMM YYYY"
          */
         "displayFormat"?: string;
         /**
@@ -121,6 +169,14 @@ declare namespace LocalJSX {
          */
         "errorClass"?: string;
         /**
+          * ionDateTimeOnMobile if ion datetime picker is used on mobile devices Default: false
+         */
+        "ionDateTimeOnMobile"?: boolean;
+        /**
+          * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'> Default: {}
+         */
+        "ionPopoverOptions"?: Omit<PopoverOptions, "mode" | "component" | "componentProps">;
+        /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
         "max"?: any;
@@ -129,13 +185,29 @@ declare namespace LocalJSX {
          */
         "min"?: any;
         /**
-          * nativeOnMobile if native date picker is used on mobile devices Default: false
+          * Changes the mode of ion-popover and ion-datetime> Default: undefined
          */
-        "nativeOnMobile"?: boolean;
+        "mode"?: Mode;
+        /**
+          * Possibility to overwrite month names Default: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+         */
+        "monthNames"?: string[];
+        /**
+          * Possibility to overwrite month shortnames Default: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+         */
+        "monthShortNames"?: string[];
+        /**
+          * Set okay label Default: 'Okay'
+         */
+        "okayLabel"?: string;
         /**
           * Event that emits the iso date string everytime the date changes
          */
         "onChanges"?: (event: CustomEvent<string>) => void;
+        /**
+          * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats) Default: "DD. MMMM YYYY"
+         */
+        "pickerFormat"?: string;
         /**
           * Options for the js-datepicker Default: {}
          */
@@ -145,13 +217,13 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * Change ionic popover options, PopoverOptions | {} Default: {}
-         */
-        "popoverOptions"?: PopoverOptions | {};
-        /**
           * Required input Default: false
          */
         "required"?: boolean;
+        /**
+          * Set year label Default: 'Jahr'
+         */
+        "yearLabel"?: string;
     }
     interface IonicDatepickerPopover {
         /**

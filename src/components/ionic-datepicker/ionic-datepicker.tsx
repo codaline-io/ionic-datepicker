@@ -1,5 +1,6 @@
-import { OverlayEventDetail, PopoverOptions } from '@ionic/core'
+import { OverlayEventDetail, PopoverOptions, Mode } from '@ionic/core'
 import { Component, EventEmitter, Prop, h, Host, Event, State } from '@stencil/core';
+import { DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime } from '../utils'
 
 const DateTime = (window as any).luxon.DateTime
 
@@ -12,10 +13,16 @@ const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches)
 })
 export class IonicDatepicker {
   /**
-   * How the date should be formatted for display purposes
-   * Default: "DDD"
+   * How the date should be formatted for ion-datetime for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)
+   * Default: "DD. MMMM YYYY"
    */
-  @Prop() displayFormat = 'DDD';
+  @Prop() displayFormat = 'DD. MMMM YYYY';
+
+  /**
+   * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)
+   * Default: "DD. MMMM YYYY"
+   */
+  @Prop() pickerFormat = 'DD. MMMM YYYY';
 
   /**
    * Flag if datepicking is disabled
@@ -39,13 +46,13 @@ export class IonicDatepicker {
    * placeholder if not required and empty
    * Default: Datum
    */
-  @Prop() placeholder = 'Datum';
+  @Prop() placeholder = 'Datum auswählen';
 
   /**
-   * nativeOnMobile if native date picker is used on mobile devices
+   * ionDateTimeOnMobile if ion datetime picker is used on mobile devices
    * Default: false
    */
-  @Prop() nativeOnMobile = false;
+  @Prop() ionDateTimeOnMobile = false;
 
   /**
    * Max selectable date as iso date|datetime string
@@ -72,16 +79,64 @@ export class IonicDatepicker {
   @Prop() error = false;
 
   /**
-   * Change ionic popover options, PopoverOptions | {}
+   * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>
    * Default: {}
    */
-  @Prop() popoverOptions: PopoverOptions | {} = {};
+  @Prop() ionPopoverOptions: Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'> = {};
+
+  /**
+   * Changes the mode of ion-popover and ion-datetime>
+   * Default: undefined
+   */
+  @Prop() mode?: Mode;
 
   /**
    * Possibility to overwrite the error css class
    * Default: 'ionic-datepicker-error'
    */
   @Prop() errorClass = 'ionic-datepicker-error';
+
+  /**
+   * Possibility to overwrite month names
+   * Default: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+   */
+  @Prop() monthNames = MONTH_NAMES;
+
+  /**
+   * Possibility to overwrite month shortnames
+   * Default: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+   */
+  @Prop() monthShortNames = MONTH_SHORT_NAMES;
+
+  /**
+   * Possibility to overwrite day names
+   * Default: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+   */
+  @Prop() dayNames = DAY_NAMES;
+
+  /**
+   * Possibility to overwrite day shortnames
+   * Default: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+   */
+  @Prop() dayShortNames = DAY_SHORT_NAMES;
+
+  /**
+   * Set okay label
+   * Default: 'Okay'
+   */
+  @Prop() okayLabel = DEFAULT_OKAY_LABEL;
+
+  /**
+   * Set cancel label
+   * Default: 'Abbrechen'
+   */
+  @Prop() cancelLabel = DEFAULT_CANCEL_LABEL;
+
+  /**
+   * Set year label
+   * Default: 'Jahr'
+   */
+  @Prop() yearLabel = DEFAULT_YEAR_LABEL;
 
   /**
    * Event that emits the iso date string everytime the date changes
@@ -92,6 +147,9 @@ export class IonicDatepicker {
    * Stores the current selected date as formatted string for display purposes
    */
   @State() formattedDate: string = '';
+  /**
+   * Stores the current selected date as luxon DateTime
+   */
   @State() date: any
 
   private isDesktop = isDesktop();
@@ -109,14 +167,23 @@ export class IonicDatepicker {
     }
     if (this.defaultDate) {
       this.date = DateTime.fromISO(this.defaultDate)
-      this.formattedDate = this.date.toFormat(this.displayFormat);
+      this.formatDate()
     }
   }
 
-  handleInput(ev: InputEvent) {
-    if (this.disabled) {
-      this.date = DateTime.fromISO((ev.target as any).value as string);
-      this.formattedDate = this.date.toFormat(this.displayFormat);
+  private formatDate() {
+    this.formattedDate = renderDatetime(this.displayFormat, this.date ? this.date.toISO() : undefined, {
+      dayNames: this.dayNames,
+      dayShortNames: this.dayShortNames,
+      monthNames: this.monthNames,
+      monthShortNames: this.monthShortNames
+    });
+  }
+
+  handleInput(ev: CustomEvent<{ value: string }>) {
+    if (!this.disabled) {
+      this.date = DateTime.fromISO(ev.detail.value);
+      this.formatDate();
 
       this.changes.emit(this.date.toISODate());
     }
@@ -128,7 +195,7 @@ export class IonicDatepicker {
     }
 
     const popover = Object.assign(document.createElement('ion-popover'), {
-      ...this.popoverOptions,
+      ...this.ionPopoverOptions,
       component: 'ionic-datepicker-popover',
       componentProps: {
         selectedDate: this.date ? this.date.toISODate() : null,
@@ -136,10 +203,18 @@ export class IonicDatepicker {
         displayFormat: this.displayFormat,
         max: this.max,
         min: this.min,
-        pickerOptions: this.pickerOptions
+        pickerOptions: {
+          ...this.pickerOptions,
+          customDays: this.dayShortNames,
+          customMonths: this.monthNames,
+          customOverlayMonths: this.monthShortNames,
+          overlayButton: this.okayLabel,
+          overlayPlaceholder: this.yearLabel
+        }
       },
       cssClass: 'datepicker-popover',
-      event: event
+      event: event,
+      mode: this.mode
     });
     document.body.appendChild(popover);
     await popover.present();
@@ -148,8 +223,8 @@ export class IonicDatepicker {
 
     if (data && data.date) {
       this.date = DateTime.fromISO(data.date);
-      this.formattedDate = this.date.toFormat(this.displayFormat);
-      const dateString = this.date.toFormat('yyyy-LL-dd');
+      this.formatDate()
+      const dateString = this.date.toFormat('yyyy-MM-dd');
       this.changes.emit(dateString);
     }
   }
@@ -160,20 +235,30 @@ export class IonicDatepicker {
     const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
 
     return <Host>
-      { (this.isDesktop || !this.nativeOnMobile) && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
+      { (this.isDesktop || !this.ionDateTimeOnMobile) && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
         {this.formattedDate || this.placeholder}
       </span> }
-      { !this.isDesktop && this.nativeOnMobile && <input
-        type='date'
-        disabled={this.disabled}
-        class={`${disabledClassName} ${errorClassName}`}
-        placeholder={this.placeholder}
-        onInput={this.handleInput}
-        max={this.max}
-        min={this.min}
-        required={this.required}
-        value={this.date ? this.date.toISODate() : ''}
-      /> }
+      { !this.isDesktop && this.ionDateTimeOnMobile &&
+        <ion-datetime
+          value={this.defaultDate}
+          displayFormat={this.displayFormat}
+          pickerFormat={this.pickerFormat}
+          class={`${disabledClassName} ${errorClassName}`}
+          placeholder={this.placeholder}
+          monthNames={this.monthNames}
+          monthShortNames={this.monthShortNames}
+          dayNames={this.dayNames}
+          dayShortNames={this.dayShortNames}
+          cancelText={this.cancelLabel}
+          doneText={this.okayLabel}
+          min={this.min}
+          max={this.max}
+          disabled={this.disabled}
+          onIonChange={this.handleInput.bind(this)}
+          mode={this.mode}
+        >
+        </ion-datetime>
+      }
     </Host>;
   }
 }

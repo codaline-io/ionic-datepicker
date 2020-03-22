@@ -2,7 +2,7 @@
 
 # ionic-datepicker
 
-This is a datepicker component for ionic projects. It is using [js-datepicker](https://www.npmjs.com/package/js-datepicker) in an [ion-popover](https://ionicframework.com/docs/api/popover) and the possibility to use a native date input on mobile devices.
+This is a datepicker component for ionic projects. It is using [js-datepicker](https://www.npmjs.com/package/js-datepicker) in an [ion-popover](https://ionicframework.com/docs/api/popover) and the possibility to use an ion-datetime component on mobile devices.
 
 ## [Live Demo & Preview](https://codaline-io.github.io/ionic-datepicker)
 

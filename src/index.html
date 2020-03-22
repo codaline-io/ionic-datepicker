@@ -37,13 +37,13 @@
           <ion-label>
             mode: ios
           </ion-label>
-          <ionic-datepicker id='ios'></ionic-datepicker>
+          <ionic-datepicker mode='ios' id='ios'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
             mode: md
           </ion-label>
-          <ionic-datepicker id='md' default-date='2019-12-12'></ionic-datepicker>
+          <ionic-datepicker mode='md' id='md' default-date='2019-12-12'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
@@ -55,13 +55,13 @@
           <ion-label>
             localisation
           </ion-label>
-          <ionic-datepicker display-format="yyyy/LL/dd" placeholder='Select date' id='localisation'></ionic-datepicker>
+          <ionic-datepicker display-format="YYYY/MM/DD" placeholder='Select date' id='localisation'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
             custom displayFormat
           </ion-label>
-          <ionic-datepicker display-format='yyyy-LL-dd' id='format'></ionic-datepicker>
+          <ionic-datepicker display-format='YYYY-MM-DD' id='format'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
@@ -83,9 +83,9 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            native on mobile devices
+            ion-datetime on mobile devices
           </ion-label>
-          <ionic-datepicker id='nativeOnMobile'></ionic-datepicker>
+          <ionic-datepicker id='ionDatetime'></ionic-datepicker>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -97,24 +97,30 @@
     const disabled = document.getElementById('disabled')
     const format = document.getElementById('format')
     const maxmin = document.getElementById('maxmin')
-    const nativeOnMobile = document.getElementById('nativeOnMobile')
+    const ionDatetime = document.getElementById('ionDatetime')
     const localisation = document.getElementById('localisation')
 
-    ios.popoverOptions = {mode: 'ios'}
-    md.popoverOptions = {mode: 'md'}
     disabled.disabled = true
+
     maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
     maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
     maxmin.defaultDate = '2019-12-12'
-    nativeOnMobile.nativeOnMobile = true
+
+    ionDatetime.ionDateTimeOnMobile = true
+    ionDatetime.defaultDate = '2019-12-12'
+    ionDatetime.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
+    ionDatetime.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
+
     localisation.pickerOptions = {
-      customDays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-      customMonths: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      customOverlayMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      overlayButton: 'Okay',
-      overlayPlaceholder: 'Year',
       startDay: 0
     }
+    localisation.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    localisation.dayShortNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+    localisation.monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    localisation.monthShortNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    localisation.okayLabel = 'Okay'
+    localisation.cancelLabel = 'Cancel'
+    localisation.yearLabel = 'Year'
   </script>
 </body>
 </html>

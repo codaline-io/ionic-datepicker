@@ -15,6 +15,7 @@
   --font-size-large: calc(var(--font-size-base) * 1.4);
   --text-color: var(--ion-text-color, #424242);
   --error-color: var(--ion-color-danger, #eb445a);
+  --placeholder-color: var(--ion-placeholder-color, var(--ion-color-step-400, #999));
 
   /******** datepicker **********/
   /*************************/
