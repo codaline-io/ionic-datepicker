@@ -1,6 +1,6 @@
 {
   "name": "@codaline-io/ionic-datepicker",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A datepicker component for ionic",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
