@@ -2,13 +2,14 @@
 
 # ionic-datepicker
 
-This is a datepicker component for ionic projects. It is using [js-datepicker](https://www.npmjs.com/package/js-datepicker) in an [ion-popover](https://ionicframework.com/docs/api/popover) and the possibility to use an ion-datetime component on mobile devices.
+This is a datepicker component for ionic projects. It is using [js-datepicker](https://www.npmjs.com/package/js-datepicker) in an [ion-popover](https://ionicframework.com/docs/api/popover) with the possibility to use an [ion-datetime](https://ionicframework.com/docs/api/datetime) component on mobile devices.
 
 ## [Live Demo & Preview](https://codaline-io.github.io/ionic-datepicker)
 
-<img width="350" alt="Bildschirmfoto 2020-03-22 um 09 11 16" src="https://user-images.githubusercontent.com/2264672/77245288-c0a34b80-6c1d-11ea-8d12-0fb7a011809b.png">
-<img width="350" alt="Bildschirmfoto 2020-03-22 um 09 11 25" src="https://user-images.githubusercontent.com/2264672/77245292-c4cf6900-6c1d-11ea-92cf-0024652a7ee5.png">
-<img width="350" alt="Bildschirmfoto 2020-03-22 um 09 11 51" src="https://user-images.githubusercontent.com/2264672/77245343-34455880-6c1e-11ea-86cd-9d854452d101.png">
+<img width="300" alt="Bildschirmfoto 2020-03-22 um 16 03 06" src="https://user-images.githubusercontent.com/2264672/77252861-fe709600-6c56-11ea-8a61-d8ba12260c5f.png">
+<img width="300" alt="Bildschirmfoto 2020-03-22 um 16 04 05" src="https://user-images.githubusercontent.com/2264672/77252864-02041d00-6c57-11ea-9671-d02157733ab6.png">
+<img width="300" alt="Bildschirmfoto 2020-03-22 um 16 04 10" src="https://user-images.githubusercontent.com/2264672/77252865-04667700-6c57-11ea-8fce-8a3e2e08a6c0.png">
+<img width="300" alt="Bildschirmfoto 2020-03-22 um 16 05 05" src="https://user-images.githubusercontent.com/2264672/77252866-06303a80-6c57-11ea-93fc-9a6c89261438.png">
 
 ## Setup
 
@@ -43,7 +44,7 @@ This is a datepicker component for ionic projects. It is using [js-datepicker](h
 
 ### Configuration
 
-- For configration check the [component readme](https://github.com/codaline-io/ionic-datepicker/blob/master/src/components/ionic-datepicker/readme.md)
+- For configration and translations check the [component readme](https://github.com/codaline-io/ionic-datepicker/blob/master/src/components/ionic-datepicker/readme.md)
 
 ### Styling
 
