@@ -14,9 +14,13 @@
 
   <script src="https://unpkg.com/luxon@1.22.0/build/global/luxon.min.js"></script>
 
+  <!-- sources for development -->
   <script type="module" src="/build/ionic-datepicker.esm.js"></script>
   <script nomodule src="/build/ionic-datepicker.js"></script>
 
+  <!-- sources for github pages -->
+  <script type="module" src="/ionic-datepicker/esm/ionic-datepicker.mjs"></script>
+  <script nomodule src="/ionic-datepicker/ionic-datepicker.js"></script>
 </head>
 <body>
   <ion-app>
@@ -94,7 +98,7 @@
     disabled.disabled = true
     maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
     maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
-    nativeOnMobile.nativeOnMobile = false
+    nativeOnMobile.nativeOnMobile = true
   </script>
 </body>
 </html>

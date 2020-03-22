@@ -20,12 +20,14 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "build:deploy": "npm run build && cp ./src/index.html ./dist && gh-pages -d ./dist"
   },
   "devDependencies": {
     "@types/luxon": "^1.21.0",
     "@ionic/core": "^5.0.5",
     "@stencil/core": "^1.11.0",
+    "gh-pages": "^2.2.0",
     "js-datepicker": "^5.4.0",
     "luxon": "^1.22.0"
   },
