@@ -1,5 +1,5 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
-const DateTime = window.luxon.DateTime;
+import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, DEFAULT_MAX, DEFAULT_MIN, toISODate } from '../utils';
 export class IonicDatepickerPopover {
     constructor() {
         /**
@@ -13,20 +13,15 @@ export class IonicDatepickerPopover {
          */
         this.pickerOptions = {};
         /**
-         * selected default date as iso date|datetime string
-         * Default: today
-         */
-        this.selectedDate = DateTime.local().toISODate();
-        /**
          * Max selectable date as iso date|datetime string
          * Default: today + 100 years
          */
-        this.max = DateTime.local().plus({ years: 100 }).toISODate();
+        this.max = DEFAULT_MAX();
         /**
          * Min selectable date as iso date|datetime string
          * Default: today - 100 years
          */
-        this.min = DateTime.local().minus({ years: 100 }).toISODate();
+        this.min = DEFAULT_MIN();
     }
     setDisabled(_prev, current) {
         if (this.picker) {
@@ -37,17 +32,17 @@ export class IonicDatepickerPopover {
         const date = this.selectedDate ? new Date(this.selectedDate) : null;
         this.picker = window.datepicker(this.el, Object.assign({
             alwaysShow: true,
-            customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-            customMonths: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-            customOverlayMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+            customDays: DAY_SHORT_NAMES,
+            customMonths: MONTH_NAMES,
+            customOverlayMonths: MONTH_SHORT_NAMES,
             dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : new Date(),
             maxDate: new Date(this.max),
             minDate: new Date(this.min),
             onSelect: (instance) => {
-                document.querySelector('ion-popover').dismiss({ date: instance.dateSelected.toISOString() });
+                document.querySelector('ion-popover').dismiss({ date: toISODate(instance.dateSelected.toISOString()) });
             },
-            overlayButton: 'Okay',
-            overlayPlaceholder: 'Jahr',
+            overlayButton: DEFAULT_OKAY_LABEL,
+            overlayPlaceholder: DEFAULT_YEAR_LABEL,
             showAllDates: true,
             startDay: 1
         }, this.pickerOptions));
@@ -100,29 +95,28 @@ export class IonicDatepickerPopover {
             "defaultValue": "{}"
         },
         "selectedDate": {
-            "type": "any",
+            "type": "string",
             "mutable": false,
             "complexType": {
-                "original": "any",
-                "resolved": "any",
+                "original": "string",
+                "resolved": "string",
                 "references": {}
             },
             "required": false,
-            "optional": false,
+            "optional": true,
             "docs": {
                 "tags": [],
                 "text": "selected default date as iso date|datetime string\nDefault: today"
             },
             "attribute": "selected-date",
-            "reflect": false,
-            "defaultValue": "DateTime.local().toISODate()"
+            "reflect": false
         },
         "max": {
-            "type": "any",
+            "type": "string",
             "mutable": false,
             "complexType": {
-                "original": "any",
-                "resolved": "any",
+                "original": "string",
+                "resolved": "string",
                 "references": {}
             },
             "required": false,
@@ -133,14 +127,14 @@ export class IonicDatepickerPopover {
             },
             "attribute": "max",
             "reflect": false,
-            "defaultValue": "DateTime.local().plus({years: 100}).toISODate()"
+            "defaultValue": "DEFAULT_MAX()"
         },
         "min": {
-            "type": "any",
+            "type": "string",
             "mutable": false,
             "complexType": {
-                "original": "any",
-                "resolved": "any",
+                "original": "string",
+                "resolved": "string",
                 "references": {}
             },
             "required": false,
@@ -151,7 +145,7 @@ export class IonicDatepickerPopover {
             },
             "attribute": "min",
             "reflect": false,
-            "defaultValue": "DateTime.local().minus({years: 100}).toISODate()"
+            "defaultValue": "DEFAULT_MIN()"
         }
     }; }
     static get watchers() { return [{

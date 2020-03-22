@@ -16,17 +16,17 @@ export declare class IonicDatepickerPopover {
      * selected default date as iso date|datetime string
      * Default: today
      */
-    selectedDate: any;
+    selectedDate?: string;
     /**
      * Max selectable date as iso date|datetime string
      * Default: today + 100 years
      */
-    max: any;
+    max: string;
     /**
      * Min selectable date as iso date|datetime string
      * Default: today - 100 years
      */
-    min: any;
+    min: string;
     componentDidLoad(): void;
     render(): any;
 }

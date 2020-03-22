@@ -1,13 +1,18 @@
 import { Component, Prop, h, Host, Event, State } from '@stencil/core';
-const DateTime = window.luxon.DateTime;
+import { DEFAULT_MAX, DEFAULT_MIN, DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime } from '../utils';
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches);
 export class IonicDatepicker {
     constructor() {
         /**
-         * How the date should be formatted for display purposes
-         * Default: "DDD"
+         * How the date should be formatted for ion-datetime for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)
+         * Default: "DD. MMMM YYYY"
          */
-        this.displayFormat = 'DDD';
+        this.displayFormat = 'DD. MMMM YYYY';
+        /**
+         * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)
+         * Default: "DD. MMMM YYYY"
+         */
+        this.pickerFormat = 'DD. MMMM YYYY';
         /**
          * Flag if datepicking is disabled
          * Default: disabled
@@ -22,22 +27,22 @@ export class IonicDatepicker {
          * placeholder if not required and empty
          * Default: Datum
          */
-        this.placeholder = 'Datum';
+        this.placeholder = 'Datum auswählen';
         /**
-         * nativeOnMobile if native date picker is used on mobile devices
+         * ionDateTimeOnMobile if ion datetime picker is used on mobile devices
          * Default: false
          */
-        this.nativeOnMobile = false;
+        this.ionDateTimeOnMobile = false;
         /**
          * Max selectable date as iso date|datetime string
          * Default: today + 100 years
          */
-        this.max = DateTime.local().plus({ years: 100 }).toISODate();
+        this.max = DEFAULT_MAX();
         /**
          * Min selectable date as iso date|datetime string
          * Default: today - 100 years
          */
-        this.min = DateTime.local().minus({ years: 100 }).toISODate();
+        this.min = DEFAULT_MIN();
         /**
          * Required input
          * Default: false
@@ -49,15 +54,50 @@ export class IonicDatepicker {
          */
         this.error = false;
         /**
-         * Change ionic popover options, PopoverOptions | {}
+         * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>
          * Default: {}
          */
-        this.popoverOptions = {};
+        this.ionPopoverOptions = {};
         /**
          * Possibility to overwrite the error css class
          * Default: 'ionic-datepicker-error'
          */
         this.errorClass = 'ionic-datepicker-error';
+        /**
+         * Possibility to overwrite month names
+         * Default: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+         */
+        this.monthNames = MONTH_NAMES;
+        /**
+         * Possibility to overwrite month shortnames
+         * Default: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+         */
+        this.monthShortNames = MONTH_SHORT_NAMES;
+        /**
+         * Possibility to overwrite day names
+         * Default: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+         */
+        this.dayNames = DAY_NAMES;
+        /**
+         * Possibility to overwrite day shortnames
+         * Default: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+         */
+        this.dayShortNames = DAY_SHORT_NAMES;
+        /**
+         * Set okay label
+         * Default: 'Okay'
+         */
+        this.okayLabel = DEFAULT_OKAY_LABEL;
+        /**
+         * Set cancel label
+         * Default: 'Abbrechen'
+         */
+        this.cancelLabel = DEFAULT_CANCEL_LABEL;
+        /**
+         * Set year label
+         * Default: 'Jahr'
+         */
+        this.yearLabel = DEFAULT_YEAR_LABEL;
         /**
          * Stores the current selected date as formatted string for display purposes
          */
@@ -69,41 +109,44 @@ export class IonicDatepicker {
     componentWillLoad() {
         if (this.required) {
             if (!this.defaultDate || !this.defaultDate.trim()) {
-                this.defaultDate = DateTime.local().toISODate();
+                this.defaultDate = new Date().toISOString();
             }
         }
         if (this.defaultDate) {
-            this.date = DateTime.fromISO(this.defaultDate);
-            this.formattedDate = this.date.toFormat(this.displayFormat);
+            this.formatDate(this.defaultDate);
         }
     }
+    formatDate(date) {
+        this.formattedDate = renderDatetime(this.displayFormat, date, {
+            dayNames: this.dayNames,
+            dayShortNames: this.dayShortNames,
+            monthNames: this.monthNames,
+            monthShortNames: this.monthShortNames
+        });
+    }
     handleInput(ev) {
-        if (this.disabled) {
-            this.date = DateTime.fromISO(ev.target.value);
-            this.formattedDate = this.date.toFormat(this.displayFormat);
-            this.changes.emit(this.date.toISODate());
+        if (!this.disabled) {
+            this.formatDate(ev.detail.value);
+            this.changes.emit(ev.detail.value);
         }
     }
     async handleDateClick(event) {
         if (this.disabled) {
             return;
         }
-        const popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.popoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
-                selectedDate: this.date ? this.date.toISODate() : null,
+        const popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.ionPopoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
+                selectedDate: this.defaultDate || null,
                 disabled: this.disabled,
                 displayFormat: this.displayFormat,
                 max: this.max,
                 min: this.min,
-                pickerOptions: this.pickerOptions
-            }, cssClass: 'datepicker-popover', event: event }));
+                pickerOptions: Object.assign(Object.assign({}, this.pickerOptions), { customDays: this.dayShortNames, customMonths: this.monthNames, customOverlayMonths: this.monthShortNames, overlayButton: this.okayLabel, overlayPlaceholder: this.yearLabel })
+            }, cssClass: 'datepicker-popover', event: event, mode: this.mode }));
         document.body.appendChild(popover);
         await popover.present();
         const { data } = await popover.onWillDismiss();
         if (data && data.date) {
-            this.date = DateTime.fromISO(data.date);
-            this.formattedDate = this.date.toFormat(this.displayFormat);
-            const dateString = this.date.toFormat('yyyy-LL-dd');
-            this.changes.emit(dateString);
+            this.formatDate(data.date);
         }
     }
     render() {
@@ -111,8 +154,9 @@ export class IonicDatepicker {
         const placeholderClassName = !this.formattedDate ? 'placeholder' : '';
         const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
         return h(Host, null,
-            (this.isDesktop || !this.nativeOnMobile) && h("span", { onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.formattedDate || this.placeholder),
-            !this.isDesktop && this.nativeOnMobile && h("input", { type: 'date', disabled: this.disabled, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, onInput: this.handleInput, max: this.max, min: this.min, required: this.required, value: this.date ? this.date.toISODate() : '' }));
+            (this.isDesktop || !this.ionDateTimeOnMobile) && h("span", { onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.formattedDate || this.placeholder),
+            !this.isDesktop && this.ionDateTimeOnMobile &&
+                h("ion-datetime", { value: this.defaultDate, displayFormat: this.displayFormat, pickerFormat: this.pickerFormat, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, monthNames: this.monthNames, monthShortNames: this.monthShortNames, dayNames: this.dayNames, dayShortNames: this.dayShortNames, cancelText: this.cancelLabel, doneText: this.okayLabel, min: this.min, max: this.max, disabled: this.disabled, onIonChange: this.handleInput.bind(this), mode: this.mode }));
     }
     static get is() { return "ionic-datepicker"; }
     static get encapsulation() { return "shadow"; }
@@ -135,11 +179,29 @@ export class IonicDatepicker {
             "optional": false,
             "docs": {
                 "tags": [],
-                "text": "How the date should be formatted for display purposes\nDefault: \"DDD\""
+                "text": "How the date should be formatted for ion-datetime for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)\nDefault: \"DD. MMMM YYYY\""
             },
             "attribute": "display-format",
             "reflect": false,
-            "defaultValue": "'DDD'"
+            "defaultValue": "'DD. MMMM YYYY'"
+        },
+        "pickerFormat": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)\nDefault: \"DD. MMMM YYYY\""
+            },
+            "attribute": "picker-format",
+            "reflect": false,
+            "defaultValue": "'DD. MMMM YYYY'"
         },
         "disabled": {
             "type": "boolean",
@@ -208,9 +270,9 @@ export class IonicDatepicker {
             },
             "attribute": "placeholder",
             "reflect": false,
-            "defaultValue": "'Datum'"
+            "defaultValue": "'Datum ausw\u00E4hlen'"
         },
-        "nativeOnMobile": {
+        "ionDateTimeOnMobile": {
             "type": "boolean",
             "mutable": false,
             "complexType": {
@@ -222,18 +284,18 @@ export class IonicDatepicker {
             "optional": false,
             "docs": {
                 "tags": [],
-                "text": "nativeOnMobile if native date picker is used on mobile devices\nDefault: false"
+                "text": "ionDateTimeOnMobile if ion datetime picker is used on mobile devices\nDefault: false"
             },
-            "attribute": "native-on-mobile",
+            "attribute": "ion-date-time-on-mobile",
             "reflect": false,
             "defaultValue": "false"
         },
         "max": {
-            "type": "any",
+            "type": "string",
             "mutable": false,
             "complexType": {
-                "original": "any",
-                "resolved": "any",
+                "original": "string",
+                "resolved": "string",
                 "references": {}
             },
             "required": false,
@@ -244,14 +306,14 @@ export class IonicDatepicker {
             },
             "attribute": "max",
             "reflect": false,
-            "defaultValue": "DateTime.local().plus({years: 100}).toISODate()"
+            "defaultValue": "DEFAULT_MAX()"
         },
         "min": {
-            "type": "any",
+            "type": "string",
             "mutable": false,
             "complexType": {
-                "original": "any",
-                "resolved": "any",
+                "original": "string",
+                "resolved": "string",
                 "references": {}
             },
             "required": false,
@@ -262,7 +324,7 @@ export class IonicDatepicker {
             },
             "attribute": "min",
             "reflect": false,
-            "defaultValue": "DateTime.local().minus({years: 100}).toISODate()"
+            "defaultValue": "DEFAULT_MIN()"
         },
         "required": {
             "type": "boolean",
@@ -300,13 +362,16 @@ export class IonicDatepicker {
             "reflect": false,
             "defaultValue": "false"
         },
-        "popoverOptions": {
+        "ionPopoverOptions": {
             "type": "unknown",
             "mutable": false,
             "complexType": {
-                "original": "PopoverOptions | {}",
-                "resolved": "PopoverOptions<ComponentRef> | {}",
+                "original": "Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>",
+                "resolved": "{ showBackdrop?: boolean; backdropDismiss?: boolean; translucent?: boolean; cssClass?: string | string[]; event?: Event; delegate?: FrameworkDelegate; animated?: boolean; keyboardClose?: boolean; id?: string; enterAnimation?: AnimationBuilder; leaveAnimation?: AnimationBuilder; }",
                 "references": {
+                    "Omit": {
+                        "location": "global"
+                    },
                     "PopoverOptions": {
                         "location": "import",
                         "path": "@ionic/core"
@@ -317,9 +382,31 @@ export class IonicDatepicker {
             "optional": false,
             "docs": {
                 "tags": [],
-                "text": "Change ionic popover options, PopoverOptions |\u00A0{}\nDefault: {}"
+                "text": "Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>\nDefault: {}"
             },
             "defaultValue": "{}"
+        },
+        "mode": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "Mode",
+                "resolved": "\"ios\" | \"md\"",
+                "references": {
+                    "Mode": {
+                        "location": "import",
+                        "path": "@ionic/core"
+                    }
+                }
+            },
+            "required": false,
+            "optional": true,
+            "docs": {
+                "tags": [],
+                "text": "Changes the mode of ion-popover and ion-datetime>\nDefault: undefined"
+            },
+            "attribute": "mode",
+            "reflect": false
         },
         "errorClass": {
             "type": "string",
@@ -338,11 +425,128 @@ export class IonicDatepicker {
             "attribute": "error-class",
             "reflect": false,
             "defaultValue": "'ionic-datepicker-error'"
+        },
+        "monthNames": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "string[]",
+                "resolved": "string[]",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Possibility to overwrite month names\nDefault: ['Januar', 'Februar', 'M\u00E4rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']"
+            },
+            "defaultValue": "MONTH_NAMES"
+        },
+        "monthShortNames": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "string[]",
+                "resolved": "string[]",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Possibility to overwrite month shortnames\nDefault: ['Jan', 'Feb', 'M\u00E4r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']"
+            },
+            "defaultValue": "MONTH_SHORT_NAMES"
+        },
+        "dayNames": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "string[]",
+                "resolved": "string[]",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Possibility to overwrite day names\nDefault: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']"
+            },
+            "defaultValue": "DAY_NAMES"
+        },
+        "dayShortNames": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "string[]",
+                "resolved": "string[]",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Possibility to overwrite day shortnames\nDefault: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']"
+            },
+            "defaultValue": "DAY_SHORT_NAMES"
+        },
+        "okayLabel": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Set okay label\nDefault: 'Okay'"
+            },
+            "attribute": "okay-label",
+            "reflect": false,
+            "defaultValue": "DEFAULT_OKAY_LABEL"
+        },
+        "cancelLabel": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Set cancel label\nDefault: 'Abbrechen'"
+            },
+            "attribute": "cancel-label",
+            "reflect": false,
+            "defaultValue": "DEFAULT_CANCEL_LABEL"
+        },
+        "yearLabel": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "Set year label\nDefault: 'Jahr'"
+            },
+            "attribute": "year-label",
+            "reflect": false,
+            "defaultValue": "DEFAULT_YEAR_LABEL"
         }
     }; }
     static get states() { return {
-        "formattedDate": {},
-        "date": {}
+        "formattedDate": {}
     }; }
     static get events() { return [{
             "method": "changes",

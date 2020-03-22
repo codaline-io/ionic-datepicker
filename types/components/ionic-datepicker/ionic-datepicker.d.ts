@@ -1,11 +1,16 @@
-import { PopoverOptions } from '@ionic/core';
+import { PopoverOptions, Mode } from '@ionic/core';
 import { EventEmitter } from '../../stencil-public-runtime';
 export declare class IonicDatepicker {
     /**
-     * How the date should be formatted for display purposes
-     * Default: "DDD"
+     * How the date should be formatted for ion-datetime for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)
+     * Default: "DD. MMMM YYYY"
      */
     displayFormat: string;
+    /**
+     * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats)
+     * Default: "DD. MMMM YYYY"
+     */
+    pickerFormat: string;
     /**
      * Flag if datepicking is disabled
      * Default: disabled
@@ -27,20 +32,20 @@ export declare class IonicDatepicker {
      */
     placeholder: string;
     /**
-     * nativeOnMobile if native date picker is used on mobile devices
+     * ionDateTimeOnMobile if ion datetime picker is used on mobile devices
      * Default: false
      */
-    nativeOnMobile: boolean;
+    ionDateTimeOnMobile: boolean;
     /**
      * Max selectable date as iso date|datetime string
      * Default: today + 100 years
      */
-    max: any;
+    max: string;
     /**
      * Min selectable date as iso date|datetime string
      * Default: today - 100 years
      */
-    min: any;
+    min: string;
     /**
      * Required input
      * Default: false
@@ -52,15 +57,55 @@ export declare class IonicDatepicker {
      */
     error: boolean;
     /**
-     * Change ionic popover options, PopoverOptions | {}
+     * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>
      * Default: {}
      */
-    popoverOptions: PopoverOptions | {};
+    ionPopoverOptions: Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>;
+    /**
+     * Changes the mode of ion-popover and ion-datetime>
+     * Default: undefined
+     */
+    mode?: Mode;
     /**
      * Possibility to overwrite the error css class
      * Default: 'ionic-datepicker-error'
      */
     errorClass: string;
+    /**
+     * Possibility to overwrite month names
+     * Default: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+     */
+    monthNames: string[];
+    /**
+     * Possibility to overwrite month shortnames
+     * Default: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+     */
+    monthShortNames: string[];
+    /**
+     * Possibility to overwrite day names
+     * Default: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+     */
+    dayNames: string[];
+    /**
+     * Possibility to overwrite day shortnames
+     * Default: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+     */
+    dayShortNames: string[];
+    /**
+     * Set okay label
+     * Default: 'Okay'
+     */
+    okayLabel: string;
+    /**
+     * Set cancel label
+     * Default: 'Abbrechen'
+     */
+    cancelLabel: string;
+    /**
+     * Set year label
+     * Default: 'Jahr'
+     */
+    yearLabel: string;
     /**
      * Event that emits the iso date string everytime the date changes
      */
@@ -69,11 +114,13 @@ export declare class IonicDatepicker {
      * Stores the current selected date as formatted string for display purposes
      */
     formattedDate: string;
-    date: any;
     private isDesktop;
     constructor();
     componentWillLoad(): void;
-    handleInput(ev: InputEvent): void;
+    private formatDate;
+    handleInput(ev: CustomEvent<{
+        value: string;
+    }>): void;
     handleDateClick(event: MouseEvent): Promise<void>;
     render(): any;
 }
