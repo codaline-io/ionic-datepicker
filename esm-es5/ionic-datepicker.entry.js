@@ -55,7 +55,7 @@ const IonicDatepicker = class {
          */
         this.error = false;
         /**
-         * Change popover options, PopoverOptions | {}
+         * Change ionic popover options, PopoverOptions | {}
          * Default: {}
          */
         this.popoverOptions = {};

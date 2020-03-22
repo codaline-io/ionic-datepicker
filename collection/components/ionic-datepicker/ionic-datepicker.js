@@ -49,7 +49,7 @@ export class IonicDatepicker {
          */
         this.error = false;
         /**
-         * Change popover options, PopoverOptions | {}
+         * Change ionic popover options, PopoverOptions | {}
          * Default: {}
          */
         this.popoverOptions = {};
@@ -317,7 +317,7 @@ export class IonicDatepicker {
             "optional": false,
             "docs": {
                 "tags": [],
-                "text": "Change popover options, PopoverOptions |\u00A0{}\nDefault: {}"
+                "text": "Change ionic popover options, PopoverOptions |\u00A0{}\nDefault: {}"
             },
             "defaultValue": "{}"
         },

@@ -52,7 +52,7 @@ export declare class IonicDatepicker {
      */
     error: boolean;
     /**
-     * Change popover options, PopoverOptions | {}
+     * Change ionic popover options, PopoverOptions | {}
      * Default: {}
      */
     popoverOptions: PopoverOptions | {};

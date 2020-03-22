@@ -53,6 +53,12 @@
         </ion-item>
         <ion-item>
           <ion-label>
+            localisation
+          </ion-label>
+          <ionic-datepicker display-format="yyyy/LL/dd" placeholder='Select date' id='localisation'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
             custom displayFormat
           </ion-label>
           <ionic-datepicker display-format='yyyy-LL-dd' id='format'></ionic-datepicker>
@@ -92,6 +98,7 @@
     const format = document.getElementById('format')
     const maxmin = document.getElementById('maxmin')
     const nativeOnMobile = document.getElementById('nativeOnMobile')
+    const localisation = document.getElementById('localisation')
 
     ios.popoverOptions = {mode: 'ios'}
     md.popoverOptions = {mode: 'md'}
@@ -99,6 +106,14 @@
     maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
     maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
     nativeOnMobile.nativeOnMobile = true
+    localisation.pickerOptions = {
+      customDays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      customMonths: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      customOverlayMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      overlayButton: 'Okay',
+      overlayPlaceholder: 'Year',
+      startDay: 0
+    }
   </script>
 </body>
 </html>
