@@ -1,0 +1,29 @@
+@import '../variables.css';
+
+span {
+  cursor: pointer;
+}
+
+:host {
+  padding-right: var(--base-spacing-small);
+}
+
+input {
+  border: 0;
+}
+
+span.placeholder {
+  font-style: italic;
+}
+
+span.disabled,
+input[disabled],
+:host.disabled {
+  cursor: not-allowed;
+  background: transparent;
+  opacity: .3;
+}
+
+span.ionic-datepicker-error {
+  color: var(--error-color);
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+
+  <script src="https://unpkg.com/js-datepicker"></script>
+  <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+  <script src="https://unpkg.com/luxon@1.22.0/build/global/luxon.min.js"></script>
+
+  <script type="module" src="/build/ionic-datepicker.esm.js"></script>
+  <script nomodule src="/build/ionic-datepicker.js"></script>
+
+</head>
+<body>
+  <ion-app>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+          Ionic Datepicker
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            mode: ios
+          </ion-label>
+          <ionic-datepicker id='ios'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            mode: md
+          </ion-label>
+          <ionic-datepicker id='md' default-date='2019-12-12'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            disabled
+          </ion-label>
+          <ionic-datepicker default-date='2019-12-12' id='disabled'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            custom displayFormat
+          </ion-label>
+          <ionic-datepicker display-format='yyyy-LL-dd' id='format'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            min max
+          </ion-label>
+          <ionic-datepicker id='maxmin'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            error
+          </ion-label>
+          <ionic-datepicker error="true" id='error'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            required
+          </ion-label>
+          <ionic-datepicker required="true" id='error'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            native on mobile devices
+          </ion-label>
+          <ionic-datepicker id='nativeOnMobile'></ionic-datepicker>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-app>
+
+  <script>
+    const ios = document.getElementById('ios')
+    const md = document.getElementById('md')
+    const disabled = document.getElementById('disabled')
+    const format = document.getElementById('format')
+    const maxmin = document.getElementById('maxmin')
+    const nativeOnMobile = document.getElementById('nativeOnMobile')
+
+    ios.popoverOptions = {mode: 'ios'}
+    md.popoverOptions = {mode: 'md'}
+    disabled.disabled = true
+    maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
+    maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
+    nativeOnMobile.nativeOnMobile = false
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "entries": [
+    "./components/ionic-datepicker/ionic-datepicker.js",
+    "./components/ionic-datepicker-popover/ionic-datepicker-popover.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "1.11.0",
+    "typescriptVersion": "3.8.3"
+  },
+  "collections": [],
+  "bundles": []
+}
