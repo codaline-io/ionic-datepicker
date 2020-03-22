@@ -1,7 +1,5 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
-import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES } from '../utils';
-
-const DateTime = (window as any).luxon.DateTime
+import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, DEFAULT_MAX, DEFAULT_MIN } from '../utils';
 
 @Component({
   tag: 'ionic-datepicker-popover',
@@ -33,19 +31,19 @@ export class IonicDatepickerPopover {
    * selected default date as iso date|datetime string
    * Default: today
    */
-  @Prop() selectedDate = DateTime.local().toISODate();
+  @Prop() selectedDate?: string;
 
   /**
    * Max selectable date as iso date|datetime string
    * Default: today + 100 years
    */
-  @Prop() max = DateTime.local().plus({years: 100}).toISODate();
+  @Prop() max = DEFAULT_MAX();
 
   /**
    * Min selectable date as iso date|datetime string
    * Default: today - 100 years
    */
-  @Prop() min = DateTime.local().minus({years: 100}).toISODate();
+  @Prop() min = DEFAULT_MIN();
 
   componentDidLoad() {
     const date = this.selectedDate ? new Date(this.selectedDate) : null

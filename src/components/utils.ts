@@ -7,6 +7,8 @@ export const DEFAULT_OKAY_LABEL = 'Okay';
 export const DEFAULT_CANCEL_LABEL = 'Abbrechen';
 export const DEFAULT_YEAR_LABEL = 'Jahr';
 
+export const DEFAULT_MAX = () => new Date(new Date().setFullYear(new Date().getFullYear() + 100)).toISOString();
+export const DEFAULT_MIN = () => new Date(new Date().setFullYear(new Date().getFullYear() - 100)).toISOString();
 /**
  * Gets a date value given a format
  * Defaults to the current date if
@@ -179,6 +181,11 @@ const parseDate = (val: string | undefined | null): DatetimeData | undefined => 
     millisecond: parse[7],
     tzOffset,
   };
+};
+
+export const toISODate = (dateString: string) => {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`
 };
 
 interface DatetimeData {
