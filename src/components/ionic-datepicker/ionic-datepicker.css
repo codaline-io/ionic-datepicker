@@ -2,9 +2,6 @@
 
 span {
   cursor: pointer;
-}
-
-:host {
   padding-right: var(--base-spacing-small);
 }
 
@@ -13,7 +10,7 @@ input {
 }
 
 span.placeholder {
-  font-style: italic;
+  color: var(--placeholder-color)
 }
 
 span.disabled,
@@ -21,6 +18,7 @@ input[disabled],
 :host.disabled {
   cursor: not-allowed;
   background: transparent;
+  pointer-events: none;
   opacity: .3;
 }
 
