@@ -1,4 +1,4 @@
-# my-component
+# ionic-datepicker
 
 
 
@@ -19,7 +19,7 @@
 | `nativeOnMobile` | `native-on-mobile` | nativeOnMobile if native date picker is used on mobile devices Default: false  | `boolean`                            | `false`                                            |
 | `pickerOptions`  | --                 | Options for the js-datepicker Default: {}                                      | `object`                             | `{}`                                               |
 | `placeholder`    | `placeholder`      | placeholder if not required and empty Default: Datum                           | `string`                             | `'Datum'`                                          |
-| `popoverOptions` | --                 | Change popover options, PopoverOptions \| {} Default: {}                       | `PopoverOptions<ComponentRef> \| {}` | `{}`                                               |
+| `popoverOptions` | --                 | Change ionic popover options, PopoverOptions \| {} Default: {}                 | `PopoverOptions<ComponentRef> \| {}` | `{}`                                               |
 | `required`       | `required`         | Required input Default: false                                                  | `boolean`                            | `false`                                            |
 
 

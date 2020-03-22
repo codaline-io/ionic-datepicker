@@ -2,20 +2,25 @@
 
 # ionic-datepicker
 
-This is a datepicker component for ionic projects. It is using js-datepicker in an ion-popover on desktop environments and the native date input on mobile devices.
+This is a datepicker component for ionic projects. It is using [js-datepicker](https://www.npmjs.com/package/js-datepicker) in an [ion-popover](https://ionicframework.com/docs/api/popover) and the possibility to use a native date input on mobile devices.
 
-## Using this component
+## [Live Demo & Preview](https://codaline-io.github.io/ionic-datepicker)
 
-- install `js-datepicker` and `luxon`
-- make them globally available (on `window`) load `js-datepicker` css
-- keep in mind that it is only usable in an ionic project
-- use `ionic-datepicker` as tag on your ionic pwa
-- for configration check the `src/components/ionic-datepicker/readme`
+<img width="350" alt="Bildschirmfoto 2020-03-22 um 09 11 16" src="https://user-images.githubusercontent.com/2264672/77245288-c0a34b80-6c1d-11ea-8d12-0fb7a011809b.png">
+<img width="350" alt="Bildschirmfoto 2020-03-22 um 09 11 25" src="https://user-images.githubusercontent.com/2264672/77245292-c4cf6900-6c1d-11ea-92cf-0024652a7ee5.png">
+<img width="350" alt="Bildschirmfoto 2020-03-22 um 09 11 51" src="https://user-images.githubusercontent.com/2264672/77245343-34455880-6c1e-11ea-86cd-9d854452d101.png">
+
+## Setup
+
+### Requirements
+
+- Install [`js-datepicker`](https://www.npmjs.com/package/js-datepicker) and [`luxon`](https://www.npmjs.com/package/luxon)
+- Make them globally available (on `window`) load `js-datepicker` css (in an angular project, just add them to your `angular.json` as scripts and styles)
+- Keep in mind that it is only usable in an ionic project
 
 ### Script tag
 
-- [Publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages)
-- Put a script tag similar to this `<script src='https://unpkg.com/@codaline-io/ionic-datepicker@0.0.3/dist/ionic-datepicker.js'></script>` in the head of your index.html
+- Put a script tag similar to this `<script src='https://unpkg.com/@codaline-io/ionic-datepicker@VERSION/dist/ionic-datepicker.js'></script>` in the head of your index.html
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### Node Modules
@@ -27,3 +32,21 @@ This is a datepicker component for ionic projects. It is using js-datepicker in 
 - Run `npm install @codaline-io/ionic-datepicker --save`
 - Add an import to the npm packages `import @codaline-io/ionic-datepicker;`
 - Then you can use the element anywhere in your template, JSX, html etc
+
+### In other frameworks
+
+- Check stenciljs [framework integration documentation](https://stenciljs.com/docs/overview)
+
+## Usage
+
+- After the setup use `ionic-datepicker` as tag in your ionic pwa
+
+### Configuration
+
+- For configration check the [component readme](https://github.com/codaline-io/ionic-datepicker/blob/master/src/components/ionic-datepicker/readme.md)
+
+### Styling
+
+- Styling/theming is done with css-variables.
+- All css variables can be found in the [variables.css](https://github.com/codaline-io/ionic-datepicker/blob/master/src/components/variables.css)
+- All color/background variables are using ionic css variables per default

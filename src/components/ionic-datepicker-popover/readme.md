@@ -1,4 +1,4 @@
-# my-component
+# ionic-datepicker-popover
 
 
 

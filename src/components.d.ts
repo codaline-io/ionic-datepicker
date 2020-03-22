@@ -49,7 +49,7 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * Change popover options, PopoverOptions | {} Default: {}
+          * Change ionic popover options, PopoverOptions | {} Default: {}
          */
         "popoverOptions": PopoverOptions | {};
         /**
@@ -145,7 +145,7 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * Change popover options, PopoverOptions | {} Default: {}
+          * Change ionic popover options, PopoverOptions | {} Default: {}
          */
         "popoverOptions"?: PopoverOptions | {};
         /**
