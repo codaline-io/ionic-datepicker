@@ -25,6 +25,7 @@ ionic-datepicker-popover .qs-datepicker .qs-controls {
 
 ionic-datepicker-popover .qs-datepicker .qs-squares {
   justify-content: center;
+  padding: var(--squares-padding);
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-square {
@@ -36,6 +37,11 @@ ionic-datepicker-popover .qs-datepicker .qs-square {
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-day {
   font-weight: var(--square-font-weight);
 }
+
+ionic-datepicker-popover .qs-datepicker .qs-square .qs-num {
+  color: var(--text-color);
+}
+
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-current.qs-active,
 ionic-datepicker-popover .qs-datepicker .qs-square.qs-active {
   background-color: var(--square-active-background);
@@ -56,17 +62,31 @@ ionic-datepicker-popover .qs-datepicker .qs-square:not(.qs-empty):not(.qs-disabl
   color: var(--square-hover-color);
 }
 
-ionic-datepicker-popover .qs-datepicker .qs-overlay .qs-submit {
-  background: transparent;
-  padding: calc(var(--base-spacing-small) * .5) var(--base-spacing);
+ionic-datepicker-popover .qs-datepicker .qs-overlay {
+  background: var(--overlay-background);
 }
 
-ionic-datepicker-popover .qs-datepicker .qs-overlay .qs-overlay-year {
-  font-size: var(--font-size-small);
-  width: auto;
+ionic-datepicker-popover .qs-datepicker .qs-overlay .qs-submit {
+  display: none;
 }
 
 ionic-datepicker-popover .qs-datepicker .qs-overlay .qs-close {
+  color: var(--overlay-text-color);
   font-size: var(--font-size-base);
-  padding-right: var(--base-spacing);
+  padding: var(--base-spacing);
+}
+
+ionic-datepicker-popover .qs-datepicker .qs-overlay .qs-overlay-month {
+  color: var(--overlay-text-color);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  opacity: 1;
+}
+
+ionic-datepicker-popover .qs-datepicker .qs-overlay .qs-overlay-year {
+  color: var(--overlay-text-color);
+  border-bottom:  .5px solid var(--overlay-text-color);
+  font-size: var(--font-size-base);
+  padding: calc(var(--base-spacing-small) * .5) 0;
+  width: 120px;
 }

@@ -147,6 +147,7 @@ export class IonicDatepicker {
         const { data } = await popover.onWillDismiss();
         if (data && data.date) {
             this.formatDate(data.date);
+            this.changes.emit(data.date);
         }
     }
     render() {
