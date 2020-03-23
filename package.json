@@ -20,8 +20,8 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "prepublishOnly": "npm run build",
-    "build:deploy": "npm run build && cp ./src/index.html ./dist && gh-pages -d ./dist"
+    "prepublishOnly": "yarn build",
+    "build:deploy": "yarn build && cp ./src/index.html ./dist && gh-pages -d ./dist"
   },
   "devDependencies": {
     "@ionic/core": "^5.0.5",
