@@ -214,6 +214,7 @@ export class IonicDatepicker {
 
     if (data && data.date) {
       this.formatDate(data.date);
+      this.changes.emit(data.date);
     }
   }
 
