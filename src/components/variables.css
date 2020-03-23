@@ -21,19 +21,23 @@
   /*************************/
   --popover-width: 250px;
 
+  --squares-padding: 5px;
   --square-dimension: 33px;
   --square-border-radius: 5px;
   --square-font-weight: normal;
 
-  --square-hover-color: var(--ion-color-white, #fff);
+  --square-hover-color: #fff;
   --square-hover-background: var(--ion-color-secondary, #3dc2ff);
 
   --controls-padding: 5px;
-  --controls-background: var(--ion-color-white, #fff);
+  --controls-background: #fff;
 
-  --square-active-color: var(--ion-color-white, #fff);
+  --square-active-color: #fff;
   --square-active-background: var(--ion-color-primary, #3880ff);
 
-  --square-current-color: var(--ion-color-white, #fff);
+  --square-current-color: #fff;
   --square-current-background: var(--ion-color-medium, #92949c);
+
+  --overlay-background: rgba(255, 255, 255, .8);
+  --overlay-text-color: var(--text-color);
 }
