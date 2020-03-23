@@ -99,9 +99,9 @@ export class IonicDatepicker {
          */
         this.yearLabel = DEFAULT_YEAR_LABEL;
         /**
-         * Stores the current selected date as formatted string for display purposes
+         * Stores the current selected date as iso string
          */
-        this.formattedDate = '';
+        this.date = '';
         this.isDesktop = isDesktop();
         this.handleDateClick = this.handleDateClick.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -109,15 +109,15 @@ export class IonicDatepicker {
     componentWillLoad() {
         if (this.required) {
             if (!this.defaultDate || !this.defaultDate.trim()) {
-                this.defaultDate = new Date().toISOString();
+                this.date = new Date().toISOString();
             }
         }
         if (this.defaultDate) {
-            this.formatDate(this.defaultDate);
+            this.date = this.defaultDate;
         }
     }
     formatDate(date) {
-        this.formattedDate = renderDatetime(this.displayFormat, date, {
+        return renderDatetime(this.displayFormat, date, {
             dayNames: this.dayNames,
             dayShortNames: this.dayShortNames,
             monthNames: this.monthNames,
@@ -126,7 +126,7 @@ export class IonicDatepicker {
     }
     handleInput(ev) {
         if (!this.disabled) {
-            this.formatDate(ev.detail.value);
+            this.date = ev.detail.value;
             this.changes.emit(ev.detail.value);
         }
     }
@@ -135,7 +135,7 @@ export class IonicDatepicker {
             return;
         }
         const popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.ionPopoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
-                selectedDate: this.defaultDate || null,
+                selectedDate: this.date || null,
                 disabled: this.disabled,
                 displayFormat: this.displayFormat,
                 max: this.max,
@@ -146,16 +146,16 @@ export class IonicDatepicker {
         await popover.present();
         const { data } = await popover.onWillDismiss();
         if (data && data.date) {
-            this.formatDate(data.date);
+            this.date = data.date;
             this.changes.emit(data.date);
         }
     }
     render() {
         const disabledClassName = this.disabled ? 'disabled' : '';
-        const placeholderClassName = !this.formattedDate ? 'placeholder' : '';
+        const placeholderClassName = !this.date ? 'placeholder' : '';
         const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
         return h(Host, null,
-            (this.isDesktop || !this.ionDateTimeOnMobile) && h("span", { onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.formattedDate || this.placeholder),
+            (this.isDesktop || !this.ionDateTimeOnMobile) && h("span", { onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.date ? this.formatDate(this.date) : this.placeholder),
             !this.isDesktop && this.ionDateTimeOnMobile &&
                 h("ion-datetime", { value: this.defaultDate, displayFormat: this.displayFormat, pickerFormat: this.pickerFormat, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, monthNames: this.monthNames, monthShortNames: this.monthShortNames, dayNames: this.dayNames, dayShortNames: this.dayShortNames, cancelText: this.cancelLabel, doneText: this.okayLabel, min: this.min, max: this.max, disabled: this.disabled, onIonChange: this.handleInput.bind(this), mode: this.mode }));
     }
@@ -547,7 +547,7 @@ export class IonicDatepicker {
         }
     }; }
     static get states() { return {
-        "formattedDate": {}
+        "date": {}
     }; }
     static get events() { return [{
             "method": "changes",

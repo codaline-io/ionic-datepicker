@@ -111,9 +111,9 @@ export declare class IonicDatepicker {
      */
     changes: EventEmitter<string>;
     /**
-     * Stores the current selected date as formatted string for display purposes
+     * Stores the current selected date as iso string
      */
-    formattedDate: string;
+    date: string;
     private isDesktop;
     constructor();
     componentWillLoad(): void;
