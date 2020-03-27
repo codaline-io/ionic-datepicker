@@ -42,5 +42,19 @@
     "url": "https://github.com/codaline-io/ionic-datepicker"
   },
   "homepage": "https://github.com/codaline-io/ionic-datepicker",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "ionic",
+    "datepicker",
+    "js-datepicker",
+    "desktop",
+    "mobile",
+    "date",
+    "picker",
+    "stencil",
+    "web-component",
+    "webcomponent",
+    "component",
+    "browser"
+  ]
 }
