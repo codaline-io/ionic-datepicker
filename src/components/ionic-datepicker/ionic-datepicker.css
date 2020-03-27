@@ -4,26 +4,12 @@
   position: relative;
 }
 
-span {
-  cursor: pointer;
+span, button.hidden-button {
   padding-right: var(--base-spacing-small);
-}
-
-input {
-  border: 0;
 }
 
 span.placeholder {
   color: var(--placeholder-color)
-}
-
-span.disabled,
-input[disabled],
-:host.disabled {
-  cursor: not-allowed;
-  background: transparent;
-  pointer-events: none;
-  opacity: .3;
 }
 
 span.ionic-datepicker-error {
@@ -32,11 +18,11 @@ span.ionic-datepicker-error {
 
 button.hidden-button {
   position: absolute;
-  left: 0px;
-  top: 0px;
+  cursor: pointer;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
   background: transparent;
   border: 0;
   outline: none;
@@ -46,4 +32,12 @@ button.hidden-button:active,
 button.hidden-button:focus,
 button.hidden-button::-moz-focus-inner {
   border: 0;
+  outline: none;
+}
+
+span.disabled,
+button.hidden-button.disabled {
+  cursor: not-allowed;
+  background: transparent;
+  opacity: .3;
 }

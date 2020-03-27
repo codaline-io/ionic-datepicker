@@ -34,9 +34,11 @@
 
 ## Events
 
-| Event     | Description                                                     | Type                  |
-| --------- | --------------------------------------------------------------- | --------------------- |
-| `changes` | Event that emits the iso date string everytime the date changes | `CustomEvent<string>` |
+| Event     | Description                                                          | Type                  |
+| --------- | -------------------------------------------------------------------- | --------------------- |
+| `blurred` | Event that emits when the component loses the focus and gets blurred | `CustomEvent<void>`   |
+| `changes` | Event that emits the iso date string everytime the date changes      | `CustomEvent<string>` |
+| `focused` | Event that emits when the component gets the focus                   | `CustomEvent<void>`   |
 
 
 ## Methods

@@ -142,13 +142,23 @@ export class IonicDatepicker {
   @Event() changes: EventEmitter<string>;
 
   /**
+   * Event that emits when the component gets the focus
+   */
+  @Event() focused: EventEmitter<void>;
+
+  /**
+   * Event that emits when the component loses the focus and gets blurred
+   */
+  @Event() blurred: EventEmitter<void>;
+
+  /**
    * Stores the current selected date as iso string
    */
   @State() date: string = '';
 
   private isDesktop = isDesktop();
   private popover?: HTMLIonPopoverElement
-  private spanRef: HTMLSpanElement | null = null
+  private buttonRef: HTMLButtonElement | null = null
   private ionDatetimeRef: HTMLIonDatetimeElement | null = null
 
   /**
@@ -156,12 +166,12 @@ export class IonicDatepicker {
    */
   @Method()
   async open() {
-    if (this.spanRef) {
+    if (this.buttonRef) {
       if (this.popover) {
         return
       }
 
-      return this.spanRef.click()
+      return this.buttonRef.click()
     } else if (this.ionDatetimeRef) {
       return this.ionDatetimeRef.open()
     }
@@ -170,6 +180,8 @@ export class IonicDatepicker {
   constructor() {
     this.handleDateClick = this.handleDateClick.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
   }
 
   componentWillLoad() {
@@ -181,6 +193,14 @@ export class IonicDatepicker {
     if (this.defaultDate) {
       this.date = this.defaultDate
     }
+  }
+
+  handleFocus() {
+    this.focused.emit()
+  }
+
+  handleBlur() {
+    this.blurred.emit()
   }
 
   private formatDate(date: string) {
@@ -200,10 +220,12 @@ export class IonicDatepicker {
   }
 
   async handleDateClick(event: MouseEvent) {
+    // Only when popover is not already open and not disabled
     if (this.disabled || this.popover) {
       return;
     }
 
+    // Open datepicker popover
     this.popover = Object.assign(document.createElement('ion-popover'), {
       ...this.ionPopoverOptions,
       component: 'ionic-datepicker-popover',
@@ -229,13 +251,21 @@ export class IonicDatepicker {
     document.body.appendChild(this.popover);
     await this.popover.present();
 
+    // Update data
     const { data }: OverlayEventDetail<{date?: string}> = await this.popover.onWillDismiss();
-    this.popover = null
-
     if (data && data.date) {
       this.date = data.date;
       this.changes.emit(data.date);
     }
+
+    // Set focus again
+    await this.popover.onDidDismiss()
+    if (this.buttonRef) {
+      this.buttonRef.focus()
+    }
+
+    // remove popover reference
+    this.popover = null
   }
 
   render() {
@@ -244,9 +274,18 @@ export class IonicDatepicker {
     const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
 
     return <Host>
-      { (this.isDesktop || !this.ionDateTimeOnMobile) && [<span ref={(ref) => this.spanRef = ref} onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
-        {this.date ? this.formatDate(this.date) : this.placeholder}
-      </span>, <button class='hidden-button' onClick={this.handleDateClick} style={{position: 'absolute', width: '100$', left: '0', top: '0'}} type='button'></button>] }
+      { (this.isDesktop || !this.ionDateTimeOnMobile) && [
+        <span class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
+          {this.date ? this.formatDate(this.date) : this.placeholder}
+        </span>,
+        <button
+          ref={(ref) => this.buttonRef = ref}
+          class={`hidden-button ${disabledClassName}`}
+          onClick={this.handleDateClick}
+          type='button'
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}></button>
+      ]}
       { !this.isDesktop && this.ionDateTimeOnMobile &&
         <ion-datetime
           ref={(ref) => this.ionDatetimeRef = ref}
@@ -266,6 +305,8 @@ export class IonicDatepicker {
           disabled={this.disabled}
           onIonChange={this.handleInput.bind(this)}
           mode={this.mode}
+          onIonFocus={this.handleFocus}
+          onIonBlur={this.handleBlur}
         >
         </ion-datetime>
       }
