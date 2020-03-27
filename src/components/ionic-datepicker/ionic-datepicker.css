@@ -1,5 +1,9 @@
 @import '../variables.css';
 
+:host {
+  position: relative;
+}
+
 span {
   cursor: pointer;
   padding-right: var(--base-spacing-small);
@@ -24,4 +28,22 @@ input[disabled],
 
 span.ionic-datepicker-error {
   color: var(--error-color);
+}
+
+button.hidden-button {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+button.hidden-button:active,
+button.hidden-button:focus,
+button.hidden-button::-moz-focus-inner {
+  border: 0;
 }

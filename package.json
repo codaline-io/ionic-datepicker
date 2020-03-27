@@ -1,6 +1,6 @@
 {
   "name": "@codaline-io/ionic-datepicker",
-  "version": "0.0.19",
+  "version": "0.1.0",
   "description": "A datepicker component for ionic",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -24,10 +24,10 @@
     "build:deploy": "yarn build && cp ./src/index.html ./dist && gh-pages -d ./dist"
   },
   "devDependencies": {
-    "@ionic/core": "^5.0.5",
-    "@stencil/core": "^1.11.0",
+    "@ionic/core": "^5.0.7",
+    "@stencil/core": "^1.11.2",
     "gh-pages": "^2.2.0",
-    "js-datepicker": "^5.4.0"
+    "js-datepicker": "^5.5.0"
   },
   "peerDependencies": {
     "@ionic/core": "^5.0.5",

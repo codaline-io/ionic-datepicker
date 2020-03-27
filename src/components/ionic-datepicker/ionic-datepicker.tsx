@@ -1,5 +1,5 @@
 import { OverlayEventDetail, PopoverOptions, Mode } from '@ionic/core'
-import { Component, EventEmitter, Prop, h, Host, Event, State } from '@stencil/core';
+import { Component, EventEmitter, Prop, h, Host, Event, State, Method } from '@stencil/core';
 import { DEFAULT_MAX, DEFAULT_MIN, DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime } from '../utils';
 
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches)
@@ -147,6 +147,22 @@ export class IonicDatepicker {
   @State() date: string = '';
 
   private isDesktop = isDesktop();
+  private popover?: HTMLIonPopoverElement
+  private spanRef: HTMLSpanElement | null = null
+  private ionDatetimeRef: HTMLIonDatetimeElement | null = null
+
+  @Method()
+  async open() {
+    if (this.spanRef) {
+      if (this.popover) {
+        return
+      }
+
+      return this.spanRef.click()
+    } else if (this.ionDatetimeRef) {
+      return this.ionDatetimeRef.open()
+    }
+  }
 
   constructor() {
     this.handleDateClick = this.handleDateClick.bind(this)
@@ -181,11 +197,11 @@ export class IonicDatepicker {
   }
 
   async handleDateClick(event: MouseEvent) {
-    if (this.disabled) {
+    if (this.disabled || this.popover) {
       return;
     }
 
-    const popover = Object.assign(document.createElement('ion-popover'), {
+    this.popover = Object.assign(document.createElement('ion-popover'), {
       ...this.ionPopoverOptions,
       component: 'ionic-datepicker-popover',
       componentProps: {
@@ -207,10 +223,11 @@ export class IonicDatepicker {
       event: event,
       mode: this.mode
     });
-    document.body.appendChild(popover);
-    await popover.present();
+    document.body.appendChild(this.popover);
+    await this.popover.present();
 
-    const { data }: OverlayEventDetail<{date?: string}> = await popover.onWillDismiss();
+    const { data }: OverlayEventDetail<{date?: string}> = await this.popover.onWillDismiss();
+    this.popover = null
 
     if (data && data.date) {
       this.date = data.date;
@@ -224,11 +241,12 @@ export class IonicDatepicker {
     const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
 
     return <Host>
-      { (this.isDesktop || !this.ionDateTimeOnMobile) && <span onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
+      { (this.isDesktop || !this.ionDateTimeOnMobile) && [<span ref={(ref) => this.spanRef = ref} onClick={this.handleDateClick} class={`${disabledClassName} ${errorClassName} ${placeholderClassName}`}>
         {this.date ? this.formatDate(this.date) : this.placeholder}
-      </span> }
+      </span>, <button class='hidden-button' onClick={this.handleDateClick} style={{position: 'absolute', width: '100$', left: '0', top: '0'}} type='button'></button>] }
       { !this.isDesktop && this.ionDateTimeOnMobile &&
         <ion-datetime
+          ref={(ref) => this.ionDatetimeRef = ref}
           value={this.defaultDate}
           displayFormat={this.displayFormat}
           pickerFormat={this.pickerFormat}
