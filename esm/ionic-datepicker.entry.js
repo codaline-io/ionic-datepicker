@@ -1,9 +1,9 @@
-import { r as registerInstance, c as createEvent, h, H as Host } from './index-f3e464ac.js';
+import { r as registerInstance, c as createEvent, h, H as Host } from './index-ab6b0017.js';
 import { D as DEFAULT_MAX, a as DEFAULT_MIN, M as MONTH_NAMES, b as MONTH_SHORT_NAMES, c as DAY_NAMES, d as DAY_SHORT_NAMES, e as DEFAULT_OKAY_LABEL, f as DEFAULT_CANCEL_LABEL, g as DEFAULT_YEAR_LABEL, r as renderDatetime } from './utils-f44cc100.js';
 
 const variablesCss = ":root,:host{--base-spacing:var(--ion-padding, 16px);--base-spacing-small:calc(var(--base-spacing) * 0.7);--base-spacing-large:calc(var(--base-spacing) * 1.5);--font-size-base:14px;--font-size-small:calc(var(--font-size-base) * 0.9);--font-size-medium:calc(var(--font-size-base) * 1.2);--font-size-large:calc(var(--font-size-base) * 1.4);--text-color:var(--ion-text-color, #424242);--error-color:var(--ion-color-danger, #eb445a);--placeholder-color:var(--ion-placeholder-color, var(--ion-color-step-400, #999));--popover-width:250px;--squares-padding:5px;--square-dimension:33px;--square-border-radius:5px;--square-font-weight:normal;--square-hover-color:#fff;--square-hover-background:var(--ion-color-secondary, #3dc2ff);--controls-padding:5px;--controls-background:#fff;--square-active-color:#fff;--square-active-background:var(--ion-color-primary, #3880ff);--square-current-color:#fff;--square-current-background:var(--ion-color-medium, #92949c);--overlay-background:rgba(255, 255, 255, .8);--overlay-text-color:var(--text-color)}";
 
-const ionicDatepickerCss = variablesCss + "span{cursor:pointer;padding-right:var(--base-spacing-small)}input{border:0}span.placeholder{color:var(--placeholder-color)}span.disabled,input[disabled],:host.disabled{cursor:not-allowed;background:transparent;pointer-events:none;opacity:.3}span.ionic-datepicker-error{color:var(--error-color)}";
+const ionicDatepickerCss = variablesCss + ":host{position:relative}span{cursor:pointer;padding-right:var(--base-spacing-small)}input{border:0}span.placeholder{color:var(--placeholder-color)}span.disabled,input[disabled],:host.disabled{cursor:not-allowed;background:transparent;pointer-events:none;opacity:.3}span.ionic-datepicker-error{color:var(--error-color)}button.hidden-button{position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:-1;background:transparent;border:0;outline:none}button.hidden-button:active,button.hidden-button:focus,button.hidden-button::-moz-focus-inner{border:0}";
 
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches);
 const IonicDatepicker = class {
@@ -109,9 +109,25 @@ const IonicDatepicker = class {
          */
         this.date = '';
         this.isDesktop = isDesktop();
+        this.spanRef = null;
+        this.ionDatetimeRef = null;
         this.handleDateClick = this.handleDateClick.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.changes = createEvent(this, "changes", 7);
+    }
+    /**
+     * Programmatically open the picker
+     */
+    async open() {
+        if (this.spanRef) {
+            if (this.popover) {
+                return;
+            }
+            return this.spanRef.click();
+        }
+        else if (this.ionDatetimeRef) {
+            return this.ionDatetimeRef.open();
+        }
     }
     componentWillLoad() {
         if (this.required) {
@@ -138,10 +154,10 @@ const IonicDatepicker = class {
         }
     }
     async handleDateClick(event) {
-        if (this.disabled) {
+        if (this.disabled || this.popover) {
             return;
         }
-        const popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.ionPopoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
+        this.popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.ionPopoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
                 selectedDate: this.date || null,
                 disabled: this.disabled,
                 displayFormat: this.displayFormat,
@@ -149,9 +165,10 @@ const IonicDatepicker = class {
                 min: this.min,
                 pickerOptions: Object.assign(Object.assign({}, this.pickerOptions), { customDays: this.dayShortNames, customMonths: this.monthNames, customOverlayMonths: this.monthShortNames, overlayButton: this.okayLabel, overlayPlaceholder: this.yearLabel })
             }, cssClass: 'datepicker-popover', event: event, mode: this.mode }));
-        document.body.appendChild(popover);
-        await popover.present();
-        const { data } = await popover.onWillDismiss();
+        document.body.appendChild(this.popover);
+        await this.popover.present();
+        const { data } = await this.popover.onWillDismiss();
+        this.popover = null;
         if (data && data.date) {
             this.date = data.date;
             this.changes.emit(data.date);
@@ -161,8 +178,8 @@ const IonicDatepicker = class {
         const disabledClassName = this.disabled ? 'disabled' : '';
         const placeholderClassName = !this.date ? 'placeholder' : '';
         const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
-        return h(Host, null, (this.isDesktop || !this.ionDateTimeOnMobile) && h("span", { onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.date ? this.formatDate(this.date) : this.placeholder), !this.isDesktop && this.ionDateTimeOnMobile &&
-            h("ion-datetime", { value: this.defaultDate, displayFormat: this.displayFormat, pickerFormat: this.pickerFormat, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, monthNames: this.monthNames, monthShortNames: this.monthShortNames, dayNames: this.dayNames, dayShortNames: this.dayShortNames, cancelText: this.cancelLabel, doneText: this.okayLabel, min: this.min, max: this.max, disabled: this.disabled, onIonChange: this.handleInput.bind(this), mode: this.mode }));
+        return h(Host, null, (this.isDesktop || !this.ionDateTimeOnMobile) && [h("span", { ref: (ref) => this.spanRef = ref, onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.date ? this.formatDate(this.date) : this.placeholder), h("button", { class: 'hidden-button', onClick: this.handleDateClick, style: { position: 'absolute', width: '100$', left: '0', top: '0' }, type: 'button' })], !this.isDesktop && this.ionDateTimeOnMobile &&
+            h("ion-datetime", { ref: (ref) => this.ionDatetimeRef = ref, value: this.defaultDate, displayFormat: this.displayFormat, pickerFormat: this.pickerFormat, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, monthNames: this.monthNames, monthShortNames: this.monthShortNames, dayNames: this.dayNames, dayShortNames: this.dayShortNames, cancelText: this.cancelLabel, doneText: this.okayLabel, min: this.min, max: this.max, disabled: this.disabled, onIonChange: this.handleInput.bind(this), mode: this.mode }));
     }
 };
 IonicDatepicker.style = ionicDatepickerCss;

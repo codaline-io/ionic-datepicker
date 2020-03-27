@@ -1,4 +1,4 @@
-import { Component, Prop, h, Host, Event, State } from '@stencil/core';
+import { Component, Prop, h, Host, Event, State, Method } from '@stencil/core';
 import { DEFAULT_MAX, DEFAULT_MIN, DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime } from '../utils';
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches);
 export class IonicDatepicker {
@@ -103,8 +103,24 @@ export class IonicDatepicker {
          */
         this.date = '';
         this.isDesktop = isDesktop();
+        this.spanRef = null;
+        this.ionDatetimeRef = null;
         this.handleDateClick = this.handleDateClick.bind(this);
         this.handleInput = this.handleInput.bind(this);
+    }
+    /**
+     * Programmatically open the picker
+     */
+    async open() {
+        if (this.spanRef) {
+            if (this.popover) {
+                return;
+            }
+            return this.spanRef.click();
+        }
+        else if (this.ionDatetimeRef) {
+            return this.ionDatetimeRef.open();
+        }
     }
     componentWillLoad() {
         if (this.required) {
@@ -131,10 +147,10 @@ export class IonicDatepicker {
         }
     }
     async handleDateClick(event) {
-        if (this.disabled) {
+        if (this.disabled || this.popover) {
             return;
         }
-        const popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.ionPopoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
+        this.popover = Object.assign(document.createElement('ion-popover'), Object.assign(Object.assign({}, this.ionPopoverOptions), { component: 'ionic-datepicker-popover', componentProps: {
                 selectedDate: this.date || null,
                 disabled: this.disabled,
                 displayFormat: this.displayFormat,
@@ -142,9 +158,10 @@ export class IonicDatepicker {
                 min: this.min,
                 pickerOptions: Object.assign(Object.assign({}, this.pickerOptions), { customDays: this.dayShortNames, customMonths: this.monthNames, customOverlayMonths: this.monthShortNames, overlayButton: this.okayLabel, overlayPlaceholder: this.yearLabel })
             }, cssClass: 'datepicker-popover', event: event, mode: this.mode }));
-        document.body.appendChild(popover);
-        await popover.present();
-        const { data } = await popover.onWillDismiss();
+        document.body.appendChild(this.popover);
+        await this.popover.present();
+        const { data } = await this.popover.onWillDismiss();
+        this.popover = null;
         if (data && data.date) {
             this.date = data.date;
             this.changes.emit(data.date);
@@ -155,9 +172,9 @@ export class IonicDatepicker {
         const placeholderClassName = !this.date ? 'placeholder' : '';
         const errorClassName = this.error && !!this.errorClass ? this.errorClass : '';
         return h(Host, null,
-            (this.isDesktop || !this.ionDateTimeOnMobile) && h("span", { onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.date ? this.formatDate(this.date) : this.placeholder),
+            (this.isDesktop || !this.ionDateTimeOnMobile) && [h("span", { ref: (ref) => this.spanRef = ref, onClick: this.handleDateClick, class: `${disabledClassName} ${errorClassName} ${placeholderClassName}` }, this.date ? this.formatDate(this.date) : this.placeholder), h("button", { class: 'hidden-button', onClick: this.handleDateClick, style: { position: 'absolute', width: '100$', left: '0', top: '0' }, type: 'button' })],
             !this.isDesktop && this.ionDateTimeOnMobile &&
-                h("ion-datetime", { value: this.defaultDate, displayFormat: this.displayFormat, pickerFormat: this.pickerFormat, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, monthNames: this.monthNames, monthShortNames: this.monthShortNames, dayNames: this.dayNames, dayShortNames: this.dayShortNames, cancelText: this.cancelLabel, doneText: this.okayLabel, min: this.min, max: this.max, disabled: this.disabled, onIonChange: this.handleInput.bind(this), mode: this.mode }));
+                h("ion-datetime", { ref: (ref) => this.ionDatetimeRef = ref, value: this.defaultDate, displayFormat: this.displayFormat, pickerFormat: this.pickerFormat, class: `${disabledClassName} ${errorClassName}`, placeholder: this.placeholder, monthNames: this.monthNames, monthShortNames: this.monthShortNames, dayNames: this.dayNames, dayShortNames: this.dayShortNames, cancelText: this.cancelLabel, doneText: this.okayLabel, min: this.min, max: this.max, disabled: this.disabled, onIonChange: this.handleInput.bind(this), mode: this.mode }));
     }
     static get is() { return "ionic-datepicker"; }
     static get encapsulation() { return "shadow"; }
@@ -565,4 +582,22 @@ export class IonicDatepicker {
                 "references": {}
             }
         }]; }
+    static get methods() { return {
+        "open": {
+            "complexType": {
+                "signature": "() => Promise<void>",
+                "parameters": [],
+                "references": {
+                    "Promise": {
+                        "location": "global"
+                    }
+                },
+                "return": "Promise<void>"
+            },
+            "docs": {
+                "text": "Programmatically open the picker",
+                "tags": []
+            }
+        }
+    }; }
 }

@@ -226,6 +226,31 @@ const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
             classList.remove(...oldClasses.filter(c => c && !newClasses.includes(c)));
             classList.add(...newClasses.filter(c => c && !oldClasses.includes(c)));
         }
+        else if ( memberName === 'style') {
+            // update style attribute, css properties and values
+            {
+                for (const prop in oldValue) {
+                    if (!newValue || newValue[prop] == null) {
+                        if ( prop.includes('-')) {
+                            elm.style.removeProperty(prop);
+                        }
+                        else {
+                            elm.style[prop] = '';
+                        }
+                    }
+                }
+            }
+            for (const prop in newValue) {
+                if (!oldValue || newValue[prop] !== oldValue[prop]) {
+                    if ( prop.includes('-')) {
+                        elm.style.setProperty(prop, newValue[prop]);
+                    }
+                    else {
+                        elm.style[prop] = newValue[prop];
+                    }
+                }
+            }
+        }
         else if ( memberName === 'ref') {
             // minifier will clean this up
             if (newValue) {
@@ -656,6 +681,9 @@ const postUpdateComponent = (hostRef) => {
     else {
         endPostUpdate();
     }
+    {
+        hostRef.$onInstanceResolve$(elm);
+    }
     // load events fire from bottom to top
     // the deepest elements load first then bubbles up
     {
@@ -792,6 +820,15 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
                     enumerable: true,
                 });
             }
+            else if ( flags & 1 /* isElementConstructor */ && memberFlags & 64 /* Method */) {
+                // proxyComponent - method
+                Object.defineProperty(prototype, memberName, {
+                    value(...args) {
+                        const ref = getHostRef(this);
+                        return ref.$onInstancePromise$.then(() => ref.$lazyInstance$[memberName](...args));
+                    },
+                });
+            }
         });
         if ( ( flags & 1 /* isElementConstructor */)) {
             const attrNameToPropName = new Map();
@@ -871,7 +908,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
             if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
-                style = await import('./shadow-css-e0788b6b.js').then(m => m.scopeCss(style, scopeId, false));
+                style = await import('./shadow-css-c018471d.js').then(m => m.scopeCss(style, scopeId, false));
             }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
@@ -1056,6 +1093,9 @@ const registerHost = (elm, cmpMeta) => {
         $instanceValues$: new Map(),
     };
     {
+        hostRef.$onInstancePromise$ = new Promise(r => (hostRef.$onInstanceResolve$ = r));
+    }
+    {
         hostRef.$onReadyPromise$ = new Promise(r => (hostRef.$onReadyResolve$ = r));
         elm['s-p'] = [];
         elm['s-rc'] = [];
@@ -1159,7 +1199,7 @@ const patchEsm = () => {
     // @ts-ignore
     if ( !(CSS && CSS.supports && CSS.supports('color', 'var(--c)'))) {
         // @ts-ignore
-        return import(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-c2083285.js').then(() => {
+        return import(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-c6f94a39.js').then(() => {
             if ((plt.$cssShim$ = win.__cssshim)) {
                 return plt.$cssShim$.i();
             }
@@ -1202,7 +1242,7 @@ const patchBrowser = () => {
         if ( !win.customElements) {
             // module support, but no custom elements support (Old Edge)
             // @ts-ignore
-            return import(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-a49afb20.js').then(() => opts);
+            return import(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-17330dd2.js').then(() => opts);
         }
     }
     return promiseResolve(opts);

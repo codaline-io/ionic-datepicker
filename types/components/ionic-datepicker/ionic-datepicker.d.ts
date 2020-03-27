@@ -115,6 +115,13 @@ export declare class IonicDatepicker {
      */
     date: string;
     private isDesktop;
+    private popover?;
+    private spanRef;
+    private ionDatetimeRef;
+    /**
+     * Programmatically open the picker
+     */
+    open(): Promise<void>;
     constructor();
     componentWillLoad(): void;
     private formatDate;

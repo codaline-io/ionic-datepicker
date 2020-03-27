@@ -88,6 +88,12 @@
           <ionic-datepicker id='ionDatetime'></ionic-datepicker>
         </ion-item>
       </ion-list>
+
+      <div class="ion-padding-horizontal">
+        Outside of an ion-list and ion-item:
+        <ionic-datepicker id='outside'></ionic-datepicker>
+        <ion-button id='open-button'>open datepicker</ion-button>
+      </div>
     </ion-content>
   </ion-app>
 
@@ -99,6 +105,8 @@
     const maxmin = document.getElementById('maxmin')
     const ionDatetime = document.getElementById('ionDatetime')
     const localisation = document.getElementById('localisation')
+    const outside = document.getElementById('outside')
+    const openButton = document.getElementById('open-button')
 
     disabled.disabled = true
 
@@ -121,6 +129,9 @@
     localisation.okayLabel = 'Okay'
     localisation.cancelLabel = 'Cancel'
     localisation.yearLabel = 'Year'
+
+    outside.ionDateTimeOnMobile = true
+    openButton.addEventListener('click', () => outside.open())
   </script>
 </body>
 </html>
