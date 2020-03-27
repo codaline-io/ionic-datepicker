@@ -151,6 +151,9 @@ export class IonicDatepicker {
   private spanRef: HTMLSpanElement | null = null
   private ionDatetimeRef: HTMLIonDatetimeElement | null = null
 
+  /**
+   * Programmatically open the picker
+   */
   @Method()
   async open() {
     if (this.spanRef) {

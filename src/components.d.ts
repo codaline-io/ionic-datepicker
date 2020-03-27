@@ -72,6 +72,9 @@ export namespace Components {
           * Set okay label Default: 'Okay'
          */
         "okayLabel": string;
+        /**
+          * Programmatically open the picker
+         */
         "open": () => Promise<void>;
         /**
           * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats) Default: "DD. MMMM YYYY"

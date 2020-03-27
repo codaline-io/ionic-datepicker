@@ -39,6 +39,19 @@
 | `changes` | Event that emits the iso date string everytime the date changes | `CustomEvent<string>` |
 
 
+## Methods
+
+### `open() => Promise<void>`
+
+Programmatically open the picker
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
