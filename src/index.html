@@ -79,7 +79,7 @@
           <ion-label>
             required
           </ion-label>
-          <ionic-datepicker required="true" id='error'></ionic-datepicker>
+          <ionic-datepicker required="true" id='required'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
@@ -120,6 +120,7 @@
     maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
     maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
     maxmin.defaultDate = '2019-12-12'
+    setTimeout(() => maxmin.defaultDate = '2019-12-11', 2000)
 
     ionDatetime.ionDateTimeOnMobile = true
     ionDatetime.defaultDate = '2019-12-12'

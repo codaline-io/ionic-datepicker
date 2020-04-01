@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@ionic/core": "^5.0.7",
-    "@stencil/core": "^1.11.2",
+    "@stencil/core": "^1.11.3",
     "gh-pages": "^2.2.0",
-    "js-datepicker": "^5.5.0"
+    "js-datepicker": "^5.6.0"
   },
   "peerDependencies": {
     "@ionic/core": "^5.0.5",

@@ -52,11 +52,11 @@ export class IonicDatepickerPopover {
       customDays: DAY_SHORT_NAMES,
       customMonths: MONTH_NAMES,
       customOverlayMonths: MONTH_SHORT_NAMES,
-      dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : new Date(),
+      dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : null,
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
-      onSelect: (instance: { dateSelected: Date }) => {
-        document.querySelector('ion-popover').dismiss({ date: toISODate(instance.dateSelected.toISOString()) })
+      onSelect: (instance: { dateSelected?: Date }) => {
+        document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null })
       },
       overlayButton: DEFAULT_OKAY_LABEL,
       overlayPlaceholder: DEFAULT_YEAR_LABEL,

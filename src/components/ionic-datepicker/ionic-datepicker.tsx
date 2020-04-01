@@ -1,5 +1,5 @@
 import { OverlayEventDetail, PopoverOptions, Mode } from '@ionic/core'
-import { Component, EventEmitter, Prop, h, Host, Event, State, Method } from '@stencil/core';
+import { Component, EventEmitter, Prop, h, Host, Event, State, Method, Watch } from '@stencil/core';
 import { DEFAULT_MAX, DEFAULT_MIN, DAY_NAMES, DAY_SHORT_NAMES, DEFAULT_CANCEL_LABEL, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, MONTH_SHORT_NAMES, renderDatetime } from '../utils';
 
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches)
@@ -39,6 +39,18 @@ export class IonicDatepicker {
    * Default: today when required
    */
   @Prop() defaultDate?: string;
+  @Watch('defaultDate')
+  updateDateState(_prev, next) {
+    if (this.date !== next) {
+      this.date = next
+
+      if (this.required) {
+        if (!next || !next.trim()) {
+          this.date = new Date().toISOString();
+        }
+      }
+    }
+  }
 
   /**
    * placeholder if not required and empty
@@ -253,9 +265,12 @@ export class IonicDatepicker {
 
     // Update data
     const { data }: OverlayEventDetail<{date?: string}> = await this.popover.onWillDismiss();
-    if (data && data.date) {
-      this.date = data.date;
-      this.changes.emit(data.date);
+    if (data && data.date !== undefined) {
+      // only allow to unset date when not required
+      if (data.date || !this.required) {
+        this.date = data.date;
+        this.changes.emit(data.date);
+      }
     }
 
     // Set focus again
