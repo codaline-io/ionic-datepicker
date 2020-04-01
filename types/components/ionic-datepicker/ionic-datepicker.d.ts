@@ -26,6 +26,7 @@ export declare class IonicDatepicker {
      * Default: today when required
      */
     defaultDate?: string;
+    updateDateState(_prev: any, next: any): void;
     /**
      * placeholder if not required and empty
      * Default: Datum
@@ -111,12 +112,20 @@ export declare class IonicDatepicker {
      */
     changes: EventEmitter<string>;
     /**
+     * Event that emits when the component gets the focus
+     */
+    focused: EventEmitter<void>;
+    /**
+     * Event that emits when the component loses the focus and gets blurred
+     */
+    blurred: EventEmitter<void>;
+    /**
      * Stores the current selected date as iso string
      */
     date: string;
     private isDesktop;
     private popover?;
-    private spanRef;
+    private buttonRef;
     private ionDatetimeRef;
     /**
      * Programmatically open the picker
@@ -124,6 +133,8 @@ export declare class IonicDatepicker {
     open(): Promise<void>;
     constructor();
     componentWillLoad(): void;
+    handleFocus(): void;
+    handleBlur(): void;
     private formatDate;
     handleInput(ev: CustomEvent<{
         value: string;

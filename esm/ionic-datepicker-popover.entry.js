@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-ab6b0017.js';
+import { r as registerInstance, h } from './index-5b81d7b4.js';
 import { D as DEFAULT_MAX, a as DEFAULT_MIN, d as DAY_SHORT_NAMES, M as MONTH_NAMES, b as MONTH_SHORT_NAMES, t as toISODate, e as DEFAULT_OKAY_LABEL, g as DEFAULT_YEAR_LABEL } from './utils-f44cc100.js';
 
 const variablesCss = ":root,:host{--base-spacing:var(--ion-padding, 16px);--base-spacing-small:calc(var(--base-spacing) * 0.7);--base-spacing-large:calc(var(--base-spacing) * 1.5);--font-size-base:14px;--font-size-small:calc(var(--font-size-base) * 0.9);--font-size-medium:calc(var(--font-size-base) * 1.2);--font-size-large:calc(var(--font-size-base) * 1.4);--text-color:var(--ion-text-color, #424242);--error-color:var(--ion-color-danger, #eb445a);--placeholder-color:var(--ion-placeholder-color, var(--ion-color-step-400, #999));--popover-width:250px;--squares-padding:5px;--square-dimension:33px;--square-border-radius:5px;--square-font-weight:normal;--square-hover-color:#fff;--square-hover-background:var(--ion-color-secondary, #3dc2ff);--controls-padding:5px;--controls-background:#fff;--square-active-color:#fff;--square-active-background:var(--ion-color-primary, #3880ff);--square-current-color:#fff;--square-current-background:var(--ion-color-medium, #92949c);--overlay-background:rgba(255, 255, 255, .8);--overlay-text-color:var(--text-color)}";
@@ -41,11 +41,11 @@ const IonicDatepickerPopover = class {
             customDays: DAY_SHORT_NAMES,
             customMonths: MONTH_NAMES,
             customOverlayMonths: MONTH_SHORT_NAMES,
-            dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : new Date(),
+            dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : null,
             maxDate: new Date(this.max),
             minDate: new Date(this.min),
             onSelect: (instance) => {
-                document.querySelector('ion-popover').dismiss({ date: toISODate(instance.dateSelected.toISOString()) });
+                document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null });
             },
             overlayButton: DEFAULT_OKAY_LABEL,
             overlayPlaceholder: DEFAULT_YEAR_LABEL,

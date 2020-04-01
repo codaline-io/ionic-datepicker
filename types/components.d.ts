@@ -205,9 +205,17 @@ declare namespace LocalJSX {
          */
         "okayLabel"?: string;
         /**
+          * Event that emits when the component loses the focus and gets blurred
+         */
+        "onBlurred"?: (event: CustomEvent<void>) => void;
+        /**
           * Event that emits the iso date string everytime the date changes
          */
         "onChanges"?: (event: CustomEvent<string>) => void;
+        /**
+          * Event that emits when the component gets the focus
+         */
+        "onFocused"?: (event: CustomEvent<void>) => void;
         /**
           * How the date should be formatted for ion-datetime  for display purposes (https://ionicframework.com/docs/api/datetime/#display-and-picker-formats) Default: "DD. MMMM YYYY"
          */

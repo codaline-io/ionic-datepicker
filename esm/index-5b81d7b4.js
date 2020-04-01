@@ -226,31 +226,6 @@ const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
             classList.remove(...oldClasses.filter(c => c && !newClasses.includes(c)));
             classList.add(...newClasses.filter(c => c && !oldClasses.includes(c)));
         }
-        else if ( memberName === 'style') {
-            // update style attribute, css properties and values
-            {
-                for (const prop in oldValue) {
-                    if (!newValue || newValue[prop] == null) {
-                        if ( prop.includes('-')) {
-                            elm.style.removeProperty(prop);
-                        }
-                        else {
-                            elm.style[prop] = '';
-                        }
-                    }
-                }
-            }
-            for (const prop in newValue) {
-                if (!oldValue || newValue[prop] !== oldValue[prop]) {
-                    if ( prop.includes('-')) {
-                        elm.style.setProperty(prop, newValue[prop]);
-                    }
-                    else {
-                        elm.style[prop] = newValue[prop];
-                    }
-                }
-            }
-        }
         else if ( memberName === 'ref') {
             // minifier will clean this up
             if (newValue) {
@@ -908,7 +883,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
             if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
-                style = await import('./shadow-css-c018471d.js').then(m => m.scopeCss(style, scopeId, false));
+                style = await import('./shadow-css-76400429.js').then(m => m.scopeCss(style, scopeId, false));
             }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
@@ -1199,7 +1174,7 @@ const patchEsm = () => {
     // @ts-ignore
     if ( !(CSS && CSS.supports && CSS.supports('color', 'var(--c)'))) {
         // @ts-ignore
-        return import(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-c6f94a39.js').then(() => {
+        return import(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-f8adc4ba.js').then(() => {
             if ((plt.$cssShim$ = win.__cssshim)) {
                 return plt.$cssShim$.i();
             }
@@ -1242,7 +1217,7 @@ const patchBrowser = () => {
         if ( !win.customElements) {
             // module support, but no custom elements support (Old Edge)
             // @ts-ignore
-            return import(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-17330dd2.js').then(() => opts);
+            return import(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-4001f04a.js').then(() => opts);
         }
     }
     return promiseResolve(opts);

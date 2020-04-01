@@ -5,7 +5,7 @@
   ],
   "compiler": {
     "name": "@stencil/core",
-    "version": "1.11.2",
+    "version": "1.11.3",
     "typescriptVersion": "3.8.3"
   },
   "collections": [],

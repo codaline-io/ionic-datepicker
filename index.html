@@ -79,13 +79,19 @@
           <ion-label>
             required
           </ion-label>
-          <ionic-datepicker required="true" id='error'></ionic-datepicker>
+          <ionic-datepicker required="true" id='required'></ionic-datepicker>
         </ion-item>
         <ion-item>
           <ion-label>
             ion-datetime on mobile devices
           </ion-label>
           <ionic-datepicker id='ionDatetime'></ionic-datepicker>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            blur and focus (check js console)
+          </ion-label>
+          <ionic-datepicker id='blurFocus'></ionic-datepicker>
         </ion-item>
       </ion-list>
 
@@ -105,6 +111,7 @@
     const maxmin = document.getElementById('maxmin')
     const ionDatetime = document.getElementById('ionDatetime')
     const localisation = document.getElementById('localisation')
+    const blurFocus = document.getElementById('blurFocus')
     const outside = document.getElementById('outside')
     const openButton = document.getElementById('open-button')
 
@@ -113,6 +120,7 @@
     maxmin.max = luxon.DateTime.local().plus({ days: 1 }).toISODate()
     maxmin.min = luxon.DateTime.local().minus({ days: 5 }).toISODate()
     maxmin.defaultDate = '2019-12-12'
+    setTimeout(() => maxmin.defaultDate = '2019-12-11', 2000)
 
     ionDatetime.ionDateTimeOnMobile = true
     ionDatetime.defaultDate = '2019-12-12'
@@ -129,6 +137,15 @@
     localisation.okayLabel = 'Okay'
     localisation.cancelLabel = 'Cancel'
     localisation.yearLabel = 'Year'
+
+    blurFocus.ionDateTimeOnMobile = true
+    blurFocus.addEventListener('focused', () => {
+      console.log('Focus')
+    })
+
+    blurFocus.addEventListener('blurred', () => {
+      console.log('Blur')
+    })
 
     outside.ionDateTimeOnMobile = true
     openButton.addEventListener('click', () => outside.open())

@@ -1,3 +1,24 @@
+'use strict';
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) { return e; } else {
+    var n = {};
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () {
+            return e[k];
+          }
+        });
+      });
+    }
+    n['default'] = e;
+    return n;
+  }
+}
+
 const NAMESPACE = 'ionic-datepicker';
 
 let scopeId;
@@ -225,31 +246,6 @@ const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
             const newClasses = parseClassList(newValue);
             classList.remove(...oldClasses.filter(c => c && !newClasses.includes(c)));
             classList.add(...newClasses.filter(c => c && !oldClasses.includes(c)));
-        }
-        else if ( memberName === 'style') {
-            // update style attribute, css properties and values
-            {
-                for (const prop in oldValue) {
-                    if (!newValue || newValue[prop] == null) {
-                        if ( prop.includes('-')) {
-                            elm.style.removeProperty(prop);
-                        }
-                        else {
-                            elm.style[prop] = '';
-                        }
-                    }
-                }
-            }
-            for (const prop in newValue) {
-                if (!oldValue || newValue[prop] !== oldValue[prop]) {
-                    if ( prop.includes('-')) {
-                        elm.style.setProperty(prop, newValue[prop]);
-                    }
-                    else {
-                        elm.style[prop] = newValue[prop];
-                    }
-                }
-            }
         }
         else if ( memberName === 'ref') {
             // minifier will clean this up
@@ -908,7 +904,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
             if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
-                style = await import('./shadow-css-c018471d.js').then(m => m.scopeCss(style, scopeId, false));
+                style = await new Promise(function (resolve) { resolve(require('./shadow-css-fbf27e68.js')); }).then(m => m.scopeCss(style, scopeId, false));
             }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
@@ -1113,12 +1109,12 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     if (module) {
         return module[exportName];
     }
-    return import(
+    return new Promise(function (resolve) { resolve(_interopNamespace(require(
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
     /* webpackChunkName: "stencil-[request]" */
-    `./${bundleId}.entry.js${ ''}`).then(importedModule => {
+    `./${bundleId}.entry.js${ ''}`))); }).then(importedModule => {
         {
             cmpModules.set(bundleId, importedModule);
         }
@@ -1199,7 +1195,7 @@ const patchEsm = () => {
     // @ts-ignore
     if ( !(CSS && CSS.supports && CSS.supports('color', 'var(--c)'))) {
         // @ts-ignore
-        return import(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-c6f94a39.js').then(() => {
+        return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-eef3eab8.js')); }).then(() => {
             if ((plt.$cssShim$ = win.__cssshim)) {
                 return plt.$cssShim$.i();
             }
@@ -1242,7 +1238,7 @@ const patchBrowser = () => {
         if ( !win.customElements) {
             // module support, but no custom elements support (Old Edge)
             // @ts-ignore
-            return import(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-17330dd2.js').then(() => opts);
+            return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-a2e7c874.js')); }).then(() => opts);
         }
     }
     return promiseResolve(opts);
@@ -1283,4 +1279,10 @@ const patchDynamicImport = (base, orgScriptElm) => {
     }
 };
 
-export { Host as H, patchEsm as a, bootstrapLazy as b, createEvent as c, h, patchBrowser as p, registerInstance as r };
+exports.Host = Host;
+exports.bootstrapLazy = bootstrapLazy;
+exports.createEvent = createEvent;
+exports.h = h;
+exports.patchBrowser = patchBrowser;
+exports.patchEsm = patchEsm;
+exports.registerInstance = registerInstance;
