@@ -40,15 +40,15 @@ export class IonicDatepicker {
    */
   @Prop() defaultDate?: string;
   @Watch('defaultDate')
-  updateDateState(_prev, next) {
+  updateDateState(next) {
     if (this.date !== next) {
-      this.date = next
-
       if (this.required) {
         if (!next || !next.trim()) {
           this.date = new Date().toISOString();
+          return
         }
       }
+      this.date = next
     }
   }
 
