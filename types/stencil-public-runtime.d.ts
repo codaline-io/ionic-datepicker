@@ -1095,7 +1095,6 @@ export declare namespace JSXBase {
         is?: string;
         radioGroup?: string;
         radiogroup?: string;
-        part?: string;
         role?: string;
         about?: string;
         datatype?: string;
@@ -1390,6 +1389,7 @@ export declare namespace JSXBase {
         key?: string | number;
         ref?: (elm?: T) => void;
         slot?: string;
+        part?: string;
         onCopy?: (event: ClipboardEvent) => void;
         onCopyCapture?: (event: ClipboardEvent) => void;
         onCut?: (event: ClipboardEvent) => void;

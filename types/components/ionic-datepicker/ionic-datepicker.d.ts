@@ -26,7 +26,7 @@ export declare class IonicDatepicker {
      * Default: today when required
      */
     defaultDate?: string;
-    updateDateState(_prev: any, next: any): void;
+    updateDateState(next: any): void;
     /**
      * placeholder if not required and empty
      * Default: Datum

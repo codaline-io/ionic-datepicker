@@ -2,12 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-e7282193.js');
+const index = require('./index-443f8ea5.js');
 const utils = require('./utils-2172fc46.js');
 
-const variablesCss = ":root,:host{--base-spacing:var(--ion-padding, 16px);--base-spacing-small:calc(var(--base-spacing) * 0.7);--base-spacing-large:calc(var(--base-spacing) * 1.5);--font-size-base:14px;--font-size-small:calc(var(--font-size-base) * 0.9);--font-size-medium:calc(var(--font-size-base) * 1.2);--font-size-large:calc(var(--font-size-base) * 1.4);--text-color:var(--ion-text-color, #424242);--error-color:var(--ion-color-danger, #eb445a);--placeholder-color:var(--ion-placeholder-color, var(--ion-color-step-400, #999));--popover-width:250px;--squares-padding:5px;--square-dimension:33px;--square-border-radius:5px;--square-font-weight:normal;--square-hover-color:#fff;--square-hover-background:var(--ion-color-secondary, #3dc2ff);--controls-padding:5px;--controls-background:#fff;--square-active-color:#fff;--square-active-background:var(--ion-color-primary, #3880ff);--square-current-color:#fff;--square-current-background:var(--ion-color-medium, #92949c);--overlay-background:rgba(255, 255, 255, .8);--overlay-text-color:var(--text-color)}";
-
-const ionicDatepickerCss = variablesCss + ":host{position:relative}span,button.hidden-button{padding-right:var(--base-spacing-small)}span.placeholder{color:var(--placeholder-color)}span.ionic-datepicker-error{color:var(--error-color)}button.hidden-button{position:absolute;cursor:pointer;left:0;top:0;width:100%;height:100%;background:transparent;border:0;outline:none}button.hidden-button:active,button.hidden-button:focus,button.hidden-button::-moz-focus-inner{border:0;outline:none}span.disabled,button.hidden-button.disabled{cursor:not-allowed;background:transparent;opacity:.3}";
+const ionicDatepickerCss = ":root,:host{--base-spacing:var(--ion-padding, 16px);--base-spacing-small:calc(var(--base-spacing) * 0.7);--base-spacing-large:calc(var(--base-spacing) * 1.5);--font-size-base:14px;--font-size-small:calc(var(--font-size-base) * 0.9);--font-size-medium:calc(var(--font-size-base) * 1.2);--font-size-large:calc(var(--font-size-base) * 1.4);--text-color:var(--ion-text-color, #424242);--error-color:var(--ion-color-danger, #eb445a);--placeholder-color:var(--ion-placeholder-color, var(--ion-color-step-400, #999));--popover-width:250px;--squares-padding:5px;--square-dimension:33px;--square-border-radius:5px;--square-font-weight:normal;--square-hover-color:#fff;--square-hover-background:var(--ion-color-secondary, #3dc2ff);--controls-padding:5px;--controls-background:#fff;--square-active-color:#fff;--square-active-background:var(--ion-color-primary, #3880ff);--square-current-color:#fff;--square-current-background:var(--ion-color-medium, #92949c);--overlay-background:rgba(255, 255, 255, .8);--overlay-text-color:var(--text-color)}:host{position:relative}span,button.hidden-button{padding-right:var(--base-spacing-small)}span.placeholder{color:var(--placeholder-color)}span.ionic-datepicker-error{color:var(--error-color)}button.hidden-button{position:absolute;cursor:pointer;left:0;top:0;width:100%;height:100%;background:transparent;border:0;outline:none}button.hidden-button:active,button.hidden-button:focus,button.hidden-button::-moz-focus-inner{border:0;outline:none}span.disabled,button.hidden-button.disabled{cursor:not-allowed;background:transparent;opacity:.3}";
 
 const isDesktop = () => !(window.matchMedia('(any-pointer:coarse)').matches);
 const IonicDatepicker = class {
@@ -123,14 +121,15 @@ const IonicDatepicker = class {
         this.focused = index.createEvent(this, "focused", 7);
         this.blurred = index.createEvent(this, "blurred", 7);
     }
-    updateDateState(_prev, next) {
+    updateDateState(next) {
         if (this.date !== next) {
-            this.date = next;
             if (this.required) {
                 if (!next || !next.trim()) {
                     this.date = new Date().toISOString();
+                    return;
                 }
             }
+            this.date = next;
         }
     }
     /**

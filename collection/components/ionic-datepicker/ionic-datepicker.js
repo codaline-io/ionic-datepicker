@@ -110,14 +110,15 @@ export class IonicDatepicker {
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
     }
-    updateDateState(_prev, next) {
+    updateDateState(next) {
         if (this.date !== next) {
-            this.date = next;
             if (this.required) {
                 if (!next || !next.trim()) {
                     this.date = new Date().toISOString();
+                    return;
                 }
             }
+            this.date = next;
         }
     }
     /**

@@ -904,7 +904,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
             if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
-                style = await new Promise(function (resolve) { resolve(require('./shadow-css-fbf27e68.js')); }).then(m => m.scopeCss(style, scopeId, false));
+                style = await new Promise(function (resolve) { resolve(require('./shadow-css-75f31145.js')); }).then(m => m.scopeCss(style, scopeId, false));
             }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
@@ -989,8 +989,10 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
     let isBootstrapping = true;
     Object.assign(plt, options);
     plt.$resourcesUrl$ = new URL(options.resourcesUrl || './', doc.baseURI).href;
-    if (options.syncQueue) {
-        plt.$flags$ |= 4 /* queueSync */;
+    {
+        if (options.syncQueue) {
+            plt.$flags$ |= 4 /* queueSync */;
+        }
     }
     lazyBundles.map(lazyBundle => lazyBundle[1].map(compactMeta => {
         const cmpMeta = {
@@ -1167,26 +1169,30 @@ const consumeTimeout = (queue, timeout) => {
     }
 };
 const flush = () => {
-    queueCongestion++;
+    {
+        queueCongestion++;
+    }
     // always force a bunch of medium callbacks to run, but still have
     // a throttle on how many can run in a certain time
     // DOM READS!!!
     consume(queueDomReads);
-    const timeout = (plt.$flags$ & 6 /* queueMask */) === 2 /* appLoaded */ ? performance.now() + 10 * Math.ceil(queueCongestion * (1.0 / 22.0)) : Infinity;
     // DOM WRITES!!!
-    consumeTimeout(queueDomWrites, timeout);
-    consumeTimeout(queueDomWritesLow, timeout);
-    if (queueDomWrites.length > 0) {
-        queueDomWritesLow.push(...queueDomWrites);
-        queueDomWrites.length = 0;
-    }
-    if ((queuePending = queueDomReads.length + queueDomWrites.length + queueDomWritesLow.length > 0)) {
-        // still more to do yet, but we've run out of time
-        // let's let this thing cool off and try again in the next tick
-        plt.raf(flush);
-    }
-    else {
-        queueCongestion = 0;
+    {
+        const timeout = (plt.$flags$ & 6 /* queueMask */) === 2 /* appLoaded */ ? performance.now() + 14 * Math.ceil(queueCongestion * (1.0 / 10.0)) : Infinity;
+        consumeTimeout(queueDomWrites, timeout);
+        consumeTimeout(queueDomWritesLow, timeout);
+        if (queueDomWrites.length > 0) {
+            queueDomWritesLow.push(...queueDomWrites);
+            queueDomWrites.length = 0;
+        }
+        if ((queuePending = queueDomReads.length + queueDomWrites.length + queueDomWritesLow.length > 0)) {
+            // still more to do yet, but we've run out of time
+            // let's let this thing cool off and try again in the next tick
+            plt.raf(flush);
+        }
+        else {
+            queueCongestion = 0;
+        }
     }
 };
 const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
@@ -1195,7 +1201,7 @@ const patchEsm = () => {
     // @ts-ignore
     if ( !(CSS && CSS.supports && CSS.supports('color', 'var(--c)'))) {
         // @ts-ignore
-        return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-eef3eab8.js')); }).then(() => {
+        return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-81769342.js')); }).then(() => {
             if ((plt.$cssShim$ = win.__cssshim)) {
                 return plt.$cssShim$.i();
             }
@@ -1238,7 +1244,7 @@ const patchBrowser = () => {
         if ( !win.customElements) {
             // module support, but no custom elements support (Old Edge)
             // @ts-ignore
-            return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-a2e7c874.js')); }).then(() => opts);
+            return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-fb105459.js')); }).then(() => opts);
         }
     }
     return promiseResolve(opts);

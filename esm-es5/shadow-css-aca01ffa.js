@@ -6,7 +6,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 /*
- Stencil Client Platform v1.11.3 | MIT Licensed | https://stenciljs.com
+ Stencil Client Platform v1.12.0 | MIT Licensed | https://stenciljs.com
  */
 /**
  * @license
