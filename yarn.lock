@@ -11,9 +11,9 @@
     tslib "^1.10.0"
 
 "@stencil/core@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.12.0.tgz#eaf14636ac0aa6de76e6340d140d9b8c001709bb"
-  integrity sha512-aYQyQI2mq2UkCc6MQXdA27OqcvaBDfcCcKOKarC9e7mF2YLEmJ90behs/Mk5PuG8hUuSqjvj+dwUryjV7KpGJg==
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.12.2.tgz#e8cb749efe3e50ae23a62501249e382d3213aa06"
+  integrity sha512-lB8N0IBBT2u3ahg7R1+WZnJ/NsdgSJi3cq3E1m3dE143OCSn/l7G0JOrqyg4FSNO+9QM/ywkWp0g2eGEABF3Sg==
   dependencies:
     typescript "3.8.3"
 
