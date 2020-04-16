@@ -23,9 +23,9 @@ export class IonicDatepickerPopover {
          */
         this.min = DEFAULT_MIN();
     }
-    setDisabled(_prev, current) {
+    setDisabled(newValue) {
         if (this.picker) {
-            this.picker.disabled = current;
+            this.picker.disabled = newValue;
         }
     }
     componentDidLoad() {
@@ -38,15 +38,16 @@ export class IonicDatepickerPopover {
             dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : null,
             maxDate: new Date(this.max),
             minDate: new Date(this.min),
-            onSelect: (instance) => {
-                document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null });
-            },
+            onSelect: this.onSelect,
             overlayButton: DEFAULT_OKAY_LABEL,
             overlayPlaceholder: DEFAULT_YEAR_LABEL,
             showAllDates: true,
             startDay: 1
         }, this.pickerOptions));
         this.picker.disabled = this.disabled;
+    }
+    onSelect(instance) {
+        document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null });
     }
     render() {
         return h("div", null,

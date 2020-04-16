@@ -123,10 +123,10 @@ export declare class IonicDatepicker {
      * Stores the current selected date as iso string
      */
     date: string;
-    private isDesktop;
-    private popover?;
-    private buttonRef;
-    private ionDatetimeRef;
+    isDesktop: boolean;
+    popover?: HTMLIonPopoverElement;
+    buttonRef: HTMLButtonElement | null;
+    ionDatetimeRef: HTMLIonDatetimeElement | null;
     /**
      * Programmatically open the picker
      */
@@ -135,7 +135,7 @@ export declare class IonicDatepicker {
     componentWillLoad(): void;
     handleFocus(): void;
     handleBlur(): void;
-    private formatDate;
+    formatDate(date: string): string;
     handleInput(ev: CustomEvent<{
         value: string;
     }>): void;

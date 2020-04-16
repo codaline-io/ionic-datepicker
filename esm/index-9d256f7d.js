@@ -883,7 +883,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
             if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
-                style = await import('./shadow-css-aca01ffa.js').then(m => m.scopeCss(style, scopeId, false));
+                style = await import('./shadow-css-93af91ae.js').then(m => m.scopeCss(style, scopeId, false));
             }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
@@ -940,7 +940,11 @@ const connectedCallback = (elm) => {
                 });
             }
             {
-                initializeComponent(elm, hostRef, cmpMeta);
+                // connectedCallback, taskQueue, initialLoad
+                // angular sets attribute AFTER connectCallback
+                // https://github.com/angular/angular/issues/18909
+                // https://github.com/angular/angular/issues/19940
+                nextTick(() => initializeComponent(elm, hostRef, cmpMeta));
             }
         }
         endConnected();
@@ -989,7 +993,7 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
         if ( !supportsShadow && cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
             cmpMeta.$flags$ |= 8 /* needsShadowDomShim */;
         }
-        const tagName = cmpMeta.$tagName$;
+        const tagName =  cmpMeta.$tagName$;
         const HostElement = class extends HTMLElement {
             // StencilLazyHost
             constructor(self) {
@@ -1094,7 +1098,6 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
-    /* webpackChunkName: "stencil-[request]" */
     `./${bundleId}.entry.js${ ''}`).then(importedModule => {
         {
             cmpModules.set(bundleId, importedModule);
@@ -1180,7 +1183,7 @@ const patchEsm = () => {
     // @ts-ignore
     if ( !(CSS && CSS.supports && CSS.supports('color', 'var(--c)'))) {
         // @ts-ignore
-        return import(/* webpackChunkName: "stencil-polyfills-css-shim" */ './css-shim-9cf83bbd.js').then(() => {
+        return import(/* webpackChunkName: "polyfills-css-shim" */ './css-shim-2c5e59ef.js').then(() => {
             if ((plt.$cssShim$ = win.__cssshim)) {
                 return plt.$cssShim$.i();
             }
@@ -1223,7 +1226,7 @@ const patchBrowser = () => {
         if ( !win.customElements) {
             // module support, but no custom elements support (Old Edge)
             // @ts-ignore
-            return import(/* webpackChunkName: "stencil-polyfills-dom" */ './dom-4dc582fc.js').then(() => opts);
+            return import(/* webpackChunkName: "polyfills-dom" */ './dom-3186fe7f.js').then(() => opts);
         }
     }
     return promiseResolve(opts);

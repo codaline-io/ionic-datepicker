@@ -635,6 +635,7 @@ export declare namespace JSXBase {
     interface SlotAttributes {
         name?: string;
         slot?: string;
+        onSlotchange?: (event: Event) => void;
     }
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
         download?: any;
@@ -811,7 +812,6 @@ export declare namespace JSXBase {
         formtarget?: string;
         height?: number | string;
         indeterminate?: boolean;
-        inputmode?: string;
         list?: string;
         max?: number | string;
         maxLength?: number;
@@ -1092,6 +1092,8 @@ export declare namespace JSXBase {
         title?: string;
         inputMode?: string;
         inputmode?: string;
+        enterKeyHint?: string;
+        enterkeyhint?: string;
         is?: string;
         radioGroup?: string;
         radiogroup?: string;
@@ -1229,6 +1231,7 @@ export declare namespace JSXBase {
         'hanging'?: number | string;
         'horiz-adv-x'?: number | string;
         'horiz-origin-x'?: number | string;
+        'href'?: string;
         'ideographic'?: number | string;
         'image-rendering'?: number | string;
         'in2'?: number | string;

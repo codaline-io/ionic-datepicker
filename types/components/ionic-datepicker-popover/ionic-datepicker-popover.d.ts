@@ -1,12 +1,12 @@
 export declare class IonicDatepickerPopover {
-    private picker;
+    picker: any;
     private el;
     /**
      * Flag if datepicking is disabled
      * Default: disabled
      */
     disabled: boolean;
-    setDisabled(_prev: boolean, current: boolean): void;
+    setDisabled(newValue: boolean): void;
     /**
      * Options for the js-datepicker
      * Default: {}
@@ -28,5 +28,8 @@ export declare class IonicDatepickerPopover {
      */
     min: string;
     componentDidLoad(): void;
+    onSelect(instance: {
+        dateSelected?: Date;
+    }): void;
     render(): any;
 }
