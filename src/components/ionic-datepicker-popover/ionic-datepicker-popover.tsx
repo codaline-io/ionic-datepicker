@@ -6,7 +6,7 @@ import { DAY_SHORT_NAMES, DEFAULT_OKAY_LABEL, DEFAULT_YEAR_LABEL, MONTH_NAMES, M
   styleUrl: 'ionic-datepicker-popover.css'
 })
 export class IonicDatepickerPopover {
-  private picker: any;
+  picker: any;
   private el: HTMLDivElement;
 
   /**
@@ -15,9 +15,9 @@ export class IonicDatepickerPopover {
    */
   @Prop() disabled = false;
   @Watch('disabled')
-  setDisabled(_prev: boolean, current: boolean) {
+  setDisabled(newValue: boolean) {
     if (this.picker) {
-      this.picker.disabled = current
+      this.picker.disabled = newValue
     }
   }
 
@@ -55,9 +55,7 @@ export class IonicDatepickerPopover {
       dateSelected: date && date.getTime() <= new Date(this.max).getTime() && date.getTime() >= new Date(this.min).getTime() ? date : null,
       maxDate: new Date(this.max),
       minDate: new Date(this.min),
-      onSelect: (instance: { dateSelected?: Date }) => {
-        document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null })
-      },
+      onSelect: this.onSelect,
       overlayButton: DEFAULT_OKAY_LABEL,
       overlayPlaceholder: DEFAULT_YEAR_LABEL,
       showAllDates: true,
@@ -65,6 +63,10 @@ export class IonicDatepickerPopover {
     }, ...this.pickerOptions});
 
     this.picker.disabled = this.disabled;
+  }
+
+  onSelect(instance: { dateSelected?: Date }) {
+    document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null })
   }
 
   render() {
