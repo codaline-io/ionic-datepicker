@@ -168,10 +168,10 @@ export class IonicDatepicker {
    */
   @State() date: string = '';
 
-  private isDesktop = isDesktop();
-  private popover?: HTMLIonPopoverElement
-  private buttonRef: HTMLButtonElement | null = null
-  private ionDatetimeRef: HTMLIonDatetimeElement | null = null
+  isDesktop = isDesktop();
+  popover?: HTMLIonPopoverElement
+  buttonRef: HTMLButtonElement | null = null
+  ionDatetimeRef: HTMLIonDatetimeElement | null = null
 
   /**
    * Programmatically open the picker
@@ -215,7 +215,7 @@ export class IonicDatepicker {
     this.blurred.emit()
   }
 
-  private formatDate(date: string) {
+  formatDate(date: string) {
     return renderDatetime(this.displayFormat, date, {
       dayNames: this.dayNames,
       dayShortNames: this.dayShortNames,
@@ -260,6 +260,7 @@ export class IonicDatepicker {
       event: event,
       mode: this.mode
     });
+
     document.body.appendChild(this.popover);
     await this.popover.present();
 
