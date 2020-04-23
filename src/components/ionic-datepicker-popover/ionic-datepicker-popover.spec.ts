@@ -131,8 +131,8 @@ describe('IonicDatepickerPopover', () => {
   describe('#render', () => {
     it('renders div and sets element', async () => {
       const min = new Date('2019-01-01').toISOString();
-      const max = new Date('2021-01-01').toISOString();
-      const selected = new Date('2020-04-16').toISOString();
+      const max = new Date('2019-12-12').toISOString();
+      const selected = new Date('2019-11-11').toISOString();
       const html = `<ionic-datepicker-popover max="${max}" min="${min}" selected-date="${selected}"></ionic-datepicker-popover>`;
 
       const page = await newSpecPage({
@@ -143,299 +143,298 @@ describe('IonicDatepickerPopover', () => {
       await page.setContent(html);
 
       expect(page.root).toEqualHtml(`
-<ionic-datepicker-popover max="2021-01-01T00:00:00.000Z" min="2019-01-01T00:00:00.000Z" selected-date="2020-04-16T00:00:00.000Z">
-  <div style="position: relative;">
-    <div class="container"></div>
-    <div class="qs-datepicker-container" style="top: 0px; left: 0px;">
-      <div class="qs-datepicker">
-        <div class="qs-controls">
-          <div class="qs-arrow qs-left"></div>
-          <div class="qs-month-year">
-            <span class="qs-month">
-              April
+<ionic-datepicker-popover max=\"2019-12-12T00:00:00.000Z\" min=\"2019-01-01T00:00:00.000Z\" selected-date=\"2019-11-11T00:00:00.000Z\">
+  <div style=\"position: relative;\">
+    <div class=\"container\"></div>
+    <div class=\"qs-datepicker-container\" style=\"top: 0px; left: 0px;\">
+      <div class=\"qs-datepicker\">
+        <div class=\"qs-controls\">
+          <div class=\"qs-arrow qs-left\"></div>
+          <div class=\"qs-month-year\">
+            <span class=\"qs-month\">
+              November
             </span>
-            <span class="qs-year">
-              2020
+            <span class=\"qs-year\">
+              2019
             </span>
           </div>
-          <div class="qs-arrow qs-right"></div>
+          <div class=\"qs-arrow qs-right\"></div>
         </div>
-        <div class="qs-squares">
-          <div class="qs-day qs-square">
+        <div class=\"qs-squares\">
+          <div class=\"qs-day qs-square\">
             Mo
           </div>
-          <div class="qs-day qs-square">
+          <div class=\"qs-day qs-square\">
             Di
           </div>
-          <div class="qs-day qs-square">
+          <div class=\"qs-day qs-square\">
             Mi
           </div>
-          <div class="qs-day qs-square">
+          <div class=\"qs-day qs-square\">
             Do
           </div>
-          <div class="qs-day qs-square">
+          <div class=\"qs-day qs-square\">
             Fr
           </div>
-          <div class="qs-day qs-square">
+          <div class=\"qs-day qs-square\">
             Sa
           </div>
-          <div class="qs-day qs-square">
+          <div class=\"qs-day qs-square\">
             So
           </div>
-          <div class="Mo qs-disabled qs-empty qs-outside-current-month qs-square">
-            <span class="qs-num">
-              30
-            </span>
-          </div>
-          <div class="Di qs-disabled qs-empty qs-outside-current-month qs-square">
-            <span class="qs-num">
-              31
-            </span>
-          </div>
-          <div class="Mi qs-num qs-square">
-            <span class="qs-num">
-              1
-            </span>
-          </div>
-          <div class="Do qs-num qs-square">
-            <span class="qs-num">
-              2
-            </span>
-          </div>
-          <div class="Fr qs-num qs-square">
-            <span class="qs-num">
-              3
-            </span>
-          </div>
-          <div class="Sa qs-num qs-square">
-            <span class="qs-num">
-              4
-            </span>
-          </div>
-          <div class="So qs-num qs-square">
-            <span class="qs-num">
-              5
-            </span>
-          </div>
-          <div class="Mo qs-num qs-square">
-            <span class="qs-num">
-              6
-            </span>
-          </div>
-          <div class="Di qs-num qs-square">
-            <span class="qs-num">
-              7
-            </span>
-          </div>
-          <div class="Mi qs-num qs-square">
-            <span class="qs-num">
-              8
-            </span>
-          </div>
-          <div class="Do qs-num qs-square">
-            <span class="qs-num">
-              9
-            </span>
-          </div>
-          <div class="Fr qs-num qs-square">
-            <span class="qs-num">
-              10
-            </span>
-          </div>
-          <div class="Sa qs-num qs-square">
-            <span class="qs-num">
-              11
-            </span>
-          </div>
-          <div class="So qs-num qs-square">
-            <span class="qs-num">
-              12
-            </span>
-          </div>
-          <div class="Mo qs-num qs-square">
-            <span class="qs-num">
-              13
-            </span>
-          </div>
-          <div class="Di qs-num qs-square">
-            <span class="qs-num">
-              14
-            </span>
-          </div>
-          <div class="Mi qs-num qs-square">
-            <span class="qs-num">
-              15
-            </span>
-          </div>
-          <div class="Do qs-active qs-current qs-num qs-square">
-            <span class="qs-num">
-              16
-            </span>
-          </div>
-          <div class="Fr qs-num qs-square">
-            <span class="qs-num">
-              17
-            </span>
-          </div>
-          <div class="Sa qs-num qs-square">
-            <span class="qs-num">
-              18
-            </span>
-          </div>
-          <div class="So qs-num qs-square">
-            <span class="qs-num">
-              19
-            </span>
-          </div>
-          <div class="Mo qs-num qs-square">
-            <span class="qs-num">
-              20
-            </span>
-          </div>
-          <div class="Di qs-num qs-square">
-            <span class="qs-num">
-              21
-            </span>
-          </div>
-          <div class="Mi qs-num qs-square">
-            <span class="qs-num">
-              22
-            </span>
-          </div>
-          <div class="Do qs-num qs-square">
-            <span class="qs-num">
-              23
-            </span>
-          </div>
-          <div class="Fr qs-num qs-square">
-            <span class="qs-num">
-              24
-            </span>
-          </div>
-          <div class="Sa qs-num qs-square">
-            <span class="qs-num">
-              25
-            </span>
-          </div>
-          <div class="So qs-num qs-square">
-            <span class="qs-num">
-              26
-            </span>
-          </div>
-          <div class="Mo qs-num qs-square">
-            <span class="qs-num">
-              27
-            </span>
-          </div>
-          <div class="Di qs-num qs-square">
-            <span class="qs-num">
+          <div class=\"Mo qs-disabled qs-empty qs-outside-current-month qs-square\">
+            <span class=\"qs-num\">
               28
             </span>
           </div>
-          <div class="Mi qs-num qs-square">
-            <span class="qs-num">
+          <div class=\"Di qs-disabled qs-empty qs-outside-current-month qs-square\">
+            <span class=\"qs-num\">
               29
             </span>
           </div>
-          <div class="Do qs-num qs-square">
-            <span class="qs-num">
+          <div class=\"Mi qs-disabled qs-empty qs-outside-current-month qs-square\">
+            <span class=\"qs-num\">
               30
             </span>
           </div>
-          <div class="Fr qs-disabled qs-empty qs-outside-current-month qs-square">
-            <span class="qs-num">
+          <div class=\"Do qs-disabled qs-empty qs-outside-current-month qs-square\">
+            <span class=\"qs-num\">
+              31
+            </span>
+          </div>
+          <div class=\"Fr qs-num qs-square\">
+            <span class=\"qs-num\">
               1
             </span>
           </div>
-          <div class="Sa qs-disabled qs-empty qs-outside-current-month qs-square">
-            <span class="qs-num">
+          <div class=\"Sa qs-num qs-square\">
+            <span class=\"qs-num\">
               2
             </span>
           </div>
-          <div class="So qs-disabled qs-empty qs-outside-current-month qs-square">
-            <span class="qs-num">
+          <div class=\"So qs-num qs-square\">
+            <span class=\"qs-num\">
               3
             </span>
           </div>
+          <div class=\"Mo qs-num qs-square\">
+            <span class=\"qs-num\">
+              4
+            </span>
+          </div>
+          <div class=\"Di qs-num qs-square\">
+            <span class=\"qs-num\">
+              5
+            </span>
+          </div>
+          <div class=\"Mi qs-num qs-square\">
+            <span class=\"qs-num\">
+              6
+            </span>
+          </div>
+          <div class=\"Do qs-num qs-square\">
+            <span class=\"qs-num\">
+              7
+            </span>
+          </div>
+          <div class=\"Fr qs-num qs-square\">
+            <span class=\"qs-num\">
+              8
+            </span>
+          </div>
+          <div class=\"Sa qs-num qs-square\">
+            <span class=\"qs-num\">
+              9
+            </span>
+          </div>
+          <div class=\"So qs-num qs-square\">
+            <span class=\"qs-num\">
+              10
+            </span>
+          </div>
+          <div class=\"Mo qs-active qs-num qs-square\">
+            <span class=\"qs-num\">
+              11
+            </span>
+          </div>
+          <div class=\"Di qs-num qs-square\">
+            <span class=\"qs-num\">
+              12
+            </span>
+          </div>
+          <div class=\"Mi qs-num qs-square\">
+            <span class=\"qs-num\">
+              13
+            </span>
+          </div>
+          <div class=\"Do qs-num qs-square\">
+            <span class=\"qs-num\">
+              14
+            </span>
+          </div>
+          <div class=\"Fr qs-num qs-square\">
+            <span class=\"qs-num\">
+              15
+            </span>
+          </div>
+          <div class=\"Sa qs-num qs-square\">
+            <span class=\"qs-num\">
+              16
+            </span>
+          </div>
+          <div class=\"So qs-num qs-square\">
+            <span class=\"qs-num\">
+              17
+            </span>
+          </div>
+          <div class=\"Mo qs-num qs-square\">
+            <span class=\"qs-num\">
+              18
+            </span>
+          </div>
+          <div class=\"Di qs-num qs-square\">
+            <span class=\"qs-num\">
+              19
+            </span>
+          </div>
+          <div class=\"Mi qs-num qs-square\">
+            <span class=\"qs-num\">
+              20
+            </span>
+          </div>
+          <div class=\"Do qs-num qs-square\">
+            <span class=\"qs-num\">
+              21
+            </span>
+          </div>
+          <div class=\"Fr qs-num qs-square\">
+            <span class=\"qs-num\">
+              22
+            </span>
+          </div>
+          <div class=\"Sa qs-num qs-square\">
+            <span class=\"qs-num\">
+              23
+            </span>
+          </div>
+          <div class=\"So qs-num qs-square\">
+            <span class=\"qs-num\">
+              24
+            </span>
+          </div>
+          <div class=\"Mo qs-num qs-square\">
+            <span class=\"qs-num\">
+              25
+            </span>
+          </div>
+          <div class=\"Di qs-num qs-square\">
+            <span class=\"qs-num\">
+              26
+            </span>
+          </div>
+          <div class=\"Mi qs-num qs-square\">
+            <span class=\"qs-num\">
+              27
+            </span>
+          </div>
+          <div class=\"Do qs-num qs-square\">
+            <span class=\"qs-num\">
+              28
+            </span>
+          </div>
+          <div class=\"Fr qs-num qs-square\">
+            <span class=\"qs-num\">
+              29
+            </span>
+          </div>
+          <div class=\"Sa qs-num qs-square\">
+            <span class=\"qs-num\">
+              30
+            </span>
+          </div>
+          <div class=\"So qs-disabled qs-empty qs-outside-current-month qs-square\">
+            <span class=\"qs-num\">
+              1
+            </span>
+          </div>
         </div>
-        <div class="qs-hidden qs-overlay">
+        <div class=\"qs-hidden qs-overlay\">
           <div>
-            <input class="qs-overlay-year" placeholder="Jahr">
-            <div class="qs-close">
+            <input class=\"qs-overlay-year\" placeholder=\"Jahr\">
+            <div class=\"qs-close\">
               ✕
             </div>
           </div>
-          <div class="qs-overlay-month-container">
-            <div class="qs-overlay-month" data-month-num="0">
-              <span data-month-num="0">
+          <div class=\"qs-overlay-month-container\">
+            <div class=\"qs-overlay-month\" data-month-num=\"0\">
+              <span data-month-num=\"0\">
                 Jan
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="1">
-              <span data-month-num="1">
+            <div class=\"qs-overlay-month\" data-month-num=\"1\">
+              <span data-month-num=\"1\">
                 Feb
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="2">
-              <span data-month-num="2">
+            <div class=\"qs-overlay-month\" data-month-num=\"2\">
+              <span data-month-num=\"2\">
                 Mär
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="3">
-              <span data-month-num="3">
+            <div class=\"qs-overlay-month\" data-month-num=\"3\">
+              <span data-month-num=\"3\">
                 Apr
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="4">
-              <span data-month-num="4">
+            <div class=\"qs-overlay-month\" data-month-num=\"4\">
+              <span data-month-num=\"4\">
                 Mai
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="5">
-              <span data-month-num="5">
+            <div class=\"qs-overlay-month\" data-month-num=\"5\">
+              <span data-month-num=\"5\">
                 Jun
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="6">
-              <span data-month-num="6">
+            <div class=\"qs-overlay-month\" data-month-num=\"6\">
+              <span data-month-num=\"6\">
                 Jul
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="7">
-              <span data-month-num="7">
+            <div class=\"qs-overlay-month\" data-month-num=\"7\">
+              <span data-month-num=\"7\">
                 Aug
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="8">
-              <span data-month-num="8">
+            <div class=\"qs-overlay-month\" data-month-num=\"8\">
+              <span data-month-num=\"8\">
                 Sep
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="9">
-              <span data-month-num="9">
+            <div class=\"qs-overlay-month\" data-month-num=\"9\">
+              <span data-month-num=\"9\">
                 Okt
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="10">
-              <span data-month-num="10">
+            <div class=\"qs-overlay-month\" data-month-num=\"10\">
+              <span data-month-num=\"10\">
                 Nov
               </span>
             </div>
-            <div class="qs-overlay-month" data-month-num="11">
-              <span data-month-num="11">
+            <div class=\"qs-overlay-month\" data-month-num=\"11\">
+              <span data-month-num=\"11\">
                 Dez
               </span>
             </div>
           </div>
-          <div class="qs-disabled qs-submit">
+          <div class=\"qs-disabled qs-submit\">
             Okay
           </div>
         </div>
       </div>
     </div>
   </div>
-</ionic-datepicker-popover>
-      `);
+</ionic-datepicker-popover`);
     });
   });
 });
