@@ -2124,9 +2124,9 @@ jest@24.9.0:
     jest-cli "^24.9.0"
 
 js-datepicker@^5.10.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.10.0.tgz#5fbd13a0dc10f289ab3f9e179a2580314f77dd69"
-  integrity sha512-7BTEmEPDKPEXifxqJitGBIrB/NvERPAbI16xyZqBwkp+HPZSV/Io13pca9JYNL80bA5ZIPhRAPV1CRkRv+BHSQ==
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.11.0.tgz#65d5e2f6dd9a0822eb4c06112414d069e132fea7"
+  integrity sha512-QeCCEyEqR/pWJO43Vn2+apKjpVaazJvl7Y7k3NRk0/qrj8tBpt7T+fGLaQYXG2yxAWCVufmLfUEFc4LWIiVwHA==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
