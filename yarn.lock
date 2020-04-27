@@ -354,9 +354,9 @@
     "@types/yargs" "^13.0.0"
 
 "@stencil/core@^1.12.5":
-  version "1.12.5"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.12.5.tgz#7b9567b407aa88147d6bab14721adf1c64958231"
-  integrity sha512-A1rmWY8bG0QjPh2QBV567ziwmxT5dtSdG3p0PDTgzyBpK2jOP7dufbgQL6lL3eC/xfpk4NWgesaV5c9FS9c6wg==
+  version "1.12.6"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.12.6.tgz#77b5bf6d288f97a70d4ea352645f991e82616020"
+  integrity sha512-fOHG9x92wxlQOlp9YRouLlejFShtfvZEx4LFjNi7bqTX/nHTetdv3Ir+J+SanebjBuJgKiAmLIwXviQ0Geq23w==
   dependencies:
     typescript "3.8.3"
 
