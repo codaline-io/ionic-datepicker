@@ -30,7 +30,7 @@
     "@types/puppeteer": "2.0.1",
     "gh-pages": "^2.2.0",
     "jest": "24.9.0",
-    "jest-cli": "24.9.0",
+    "jest-cli": "25.5.4",
     "js-datepicker": "^5.10.0",
     "puppeteer": "2.1.1"
   },
