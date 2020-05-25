@@ -30,6 +30,6 @@ export declare class IonicDatepickerPopover {
     componentDidLoad(): void;
     onSelect(instance: {
         dateSelected?: Date;
-    }): void;
+    }): Promise<void>;
     render(): any;
 }

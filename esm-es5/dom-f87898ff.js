@@ -1,5 +1,5 @@
 /*
- Stencil Client Platform v1.12.4 | MIT Licensed | https://stenciljs.com
+ Stencil Client Platform v1.13.0 | MIT Licensed | https://stenciljs.com
  */
 (function () {
     var aa = new Set("annotation-xml color-profile font-face font-face-src font-face-uri font-face-format font-face-name missing-glyph".split(" "));

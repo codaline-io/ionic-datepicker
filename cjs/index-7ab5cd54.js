@@ -1,3 +1,24 @@
+'use strict';
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) { return e; } else {
+    var n = {};
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () {
+            return e[k];
+          }
+        });
+      });
+    }
+    n['default'] = e;
+    return n;
+  }
+}
+
 const NAMESPACE = 'ionic-datepicker';
 
 let scopeId;
@@ -543,7 +564,7 @@ const emitEvent = (elm, name, opts) => {
     return ev;
 };
 const attachToAncestor = (hostRef, ancestorComponent) => {
-    if ( ancestorComponent && !hostRef.$onRenderResolve$) {
+    if ( ancestorComponent && !hostRef.$onRenderResolve$ && ancestorComponent['s-p']) {
         ancestorComponent['s-p'].push(new Promise(r => (hostRef.$onRenderResolve$ = r)));
     }
 };
@@ -555,11 +576,16 @@ const scheduleUpdate = (hostRef, isInitialLoad) => {
         hostRef.$flags$ |= 512 /* needsRerender */;
         return;
     }
+    attachToAncestor(hostRef, hostRef.$ancestorComponent$);
+    // there is no ancestorc omponent or the ancestor component
+    // has already fired off its lifecycle update then
+    // fire off the initial update
+    const dispatch = () => dispatchHooks(hostRef, isInitialLoad);
+    return  writeTask(dispatch) ;
+};
+const dispatchHooks = (hostRef, isInitialLoad) => {
     const endSchedule = createTime('scheduleUpdate', hostRef.$cmpMeta$.$tagName$);
-    const ancestorComponent = hostRef.$ancestorComponent$;
     const instance =  hostRef.$lazyInstance$ ;
-    const update = () => updateComponent(hostRef, instance, isInitialLoad);
-    attachToAncestor(hostRef, ancestorComponent);
     let promise;
     if (isInitialLoad) {
         {
@@ -567,10 +593,7 @@ const scheduleUpdate = (hostRef, isInitialLoad) => {
         }
     }
     endSchedule();
-    // there is no ancestorc omponent or the ancestor component
-    // has already fired off its lifecycle update then
-    // fire off the initial update
-    return then(promise,  () => writeTask(update) );
+    return then(promise, () => (updateComponent(hostRef, instance, isInitialLoad)));
 };
 const updateComponent = (hostRef, instance, isInitialLoad) => {
     // updateComponent
@@ -883,7 +906,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
             if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
-                style = await import('./shadow-css-93af91ae.js').then(m => m.scopeCss(style, scopeId, false));
+                style = await new Promise(function (resolve) { resolve(require('./shadow-css-7f92a9e1.js')); }).then(m => m.scopeCss(style, scopeId, false));
             }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
@@ -920,7 +943,8 @@ const connectedCallback = (elm) => {
                 while ((ancestorComponent = ancestorComponent.parentNode || ancestorComponent.host)) {
                     // climb up the ancestors looking for the first
                     // component that hasn't finished its lifecycle update yet
-                    if ( ancestorComponent['s-p']) {
+                    if (
+                        ancestorComponent['s-p']) {
                         // we found this components first ancestor component
                         // keep a reference to this component's ancestor component
                         attachToAncestor(hostRef, (hostRef.$ancestorComponent$ = ancestorComponent));
@@ -1094,11 +1118,11 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     if (module) {
         return module[exportName];
     }
-    return import(
+    return new Promise(function (resolve) { resolve(_interopNamespace(require(
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
-    `./${bundleId}.entry.js${ ''}`).then(importedModule => {
+    `./${bundleId}.entry.js${ ''}`))); }).then(importedModule => {
         {
             cmpModules.set(bundleId, importedModule);
         }
@@ -1183,7 +1207,7 @@ const patchEsm = () => {
     // @ts-ignore
     if ( !(CSS && CSS.supports && CSS.supports('color', 'var(--c)'))) {
         // @ts-ignore
-        return import(/* webpackChunkName: "polyfills-css-shim" */ './css-shim-2c5e59ef.js').then(() => {
+        return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "polyfills-css-shim" */ './css-shim-c0252334.js')); }).then(() => {
             if ((plt.$cssShim$ = win.__cssshim)) {
                 return plt.$cssShim$.i();
             }
@@ -1226,7 +1250,7 @@ const patchBrowser = () => {
         if ( !win.customElements) {
             // module support, but no custom elements support (Old Edge)
             // @ts-ignore
-            return import(/* webpackChunkName: "polyfills-dom" */ './dom-3186fe7f.js').then(() => opts);
+            return new Promise(function (resolve) { resolve(require(/* webpackChunkName: "polyfills-dom" */ './dom-cd50000e.js')); }).then(() => opts);
         }
     }
     return promiseResolve(opts);
@@ -1267,4 +1291,10 @@ const patchDynamicImport = (base, orgScriptElm) => {
     }
 };
 
-export { Host as H, patchEsm as a, bootstrapLazy as b, createEvent as c, h, patchBrowser as p, registerInstance as r };
+exports.Host = Host;
+exports.bootstrapLazy = bootstrapLazy;
+exports.createEvent = createEvent;
+exports.h = h;
+exports.patchBrowser = patchBrowser;
+exports.patchEsm = patchEsm;
+exports.registerInstance = registerInstance;

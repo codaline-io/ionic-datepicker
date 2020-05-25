@@ -29,6 +29,7 @@ export class IonicDatepickerPopover {
         }
     }
     componentDidLoad() {
+        console.log(window.datepicker);
         const date = this.selectedDate ? new Date(this.selectedDate) : null;
         this.picker = window.datepicker(this.el, Object.assign({
             alwaysShow: true,
@@ -46,8 +47,8 @@ export class IonicDatepickerPopover {
         }, this.pickerOptions));
         this.picker.disabled = this.disabled;
     }
-    onSelect(instance) {
-        document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null });
+    async onSelect(instance) {
+        await document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null });
     }
     render() {
         return h("div", null,

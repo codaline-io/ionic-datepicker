@@ -697,6 +697,7 @@ export declare namespace JSXBase {
     }
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean;
+        onToggle?: (event: Event) => void;
     }
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
         cite?: string;
@@ -861,6 +862,7 @@ export declare namespace JSXBase {
         value?: string | string[] | number;
     }
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
+        as?: string;
         href?: string;
         hrefLang?: string;
         hreflang?: string;
@@ -1082,8 +1084,7 @@ export declare namespace JSXBase {
         hidden?: boolean;
         id?: string;
         lang?: string;
-        spellCheck?: boolean;
-        spellcheck?: boolean | string;
+        spellcheck?: 'true' | 'false';
         style?: {
             [key: string]: string | undefined;
         };
@@ -1393,6 +1394,7 @@ export declare namespace JSXBase {
         ref?: (elm?: T) => void;
         slot?: string;
         part?: string;
+        exportparts?: string;
         onCopy?: (event: ClipboardEvent) => void;
         onCopyCapture?: (event: ClipboardEvent) => void;
         onCut?: (event: ClipboardEvent) => void;
