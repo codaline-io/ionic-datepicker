@@ -2123,10 +2123,10 @@ jest@24.9.0:
     import-local "^2.0.0"
     jest-cli "^24.9.0"
 
-js-datepicker@^5.12.0:
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.12.0.tgz#e962d294f166d1908db4e386c9db457efbb8290c"
-  integrity sha512-8W/w2BeaLgZ58BCI4g2LVC3RQTZ/VAuwThP0H63NpAuGMrJl4xI1G0JwKgoRZXMMqhAiaPkGDDJPRZVow74e+A==
+js-datepicker@^5.14.0:
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.14.1.tgz#c4aed0f9a065a704fe061296b0d8f37e80830ded"
+  integrity sha512-RPpQZuzsZTQRpm+nz4VfKLO6rPpqR2PDervK7gs9NuNmb3hiZaXHWMfLUXvBwNhAXU4uk59gnBOVxzQck+NowQ==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"

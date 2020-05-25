@@ -46,6 +46,7 @@ export class IonicDatepickerPopover {
   @Prop() min = DEFAULT_MIN();
 
   componentDidLoad() {
+    console.log((window as any).datepicker)
     const date = this.selectedDate ? new Date(this.selectedDate) : null
     this.picker = (window as any).datepicker(this.el, { ...{
       alwaysShow: true,
@@ -65,8 +66,8 @@ export class IonicDatepickerPopover {
     this.picker.disabled = this.disabled;
   }
 
-  onSelect(instance: { dateSelected?: Date }) {
-    document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null })
+  async onSelect(instance: { dateSelected?: Date }) {
+    await document.querySelector('ion-popover').dismiss({ date: instance.dateSelected ? toISODate(instance.dateSelected.toISOString()) : null })
   }
 
   render() {
