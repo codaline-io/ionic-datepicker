@@ -38,7 +38,7 @@ ionic-datepicker-popover .qs-datepicker .qs-square.qs-day {
   font-weight: var(--square-font-weight);
 }
 
-ionic-datepicker-popover .qs-datepicker .qs-square .qs-num {
+ionic-datepicker-popover .qs-datepicker .qs-square.qs-num {
   color: var(--text-color);
 }
 
@@ -47,8 +47,8 @@ ionic-datepicker-popover .qs-datepicker .qs-square.qs-active {
   background-color: var(--square-active-background);
 }
 
-ionic-datepicker-popover .qs-datepicker .qs-square.qs-current.qs-active .qs-num,
-ionic-datepicker-popover .qs-datepicker .qs-square.qs-active .qs-num {
+ionic-datepicker-popover .qs-datepicker .qs-square.qs-current.qs-active.qs-num,
+ionic-datepicker-popover .qs-datepicker .qs-square.qs-active.qs-num {
   color: var(--square-active-color);
 }
 
@@ -65,7 +65,7 @@ ionic-datepicker-popover .qs-datepicker .qs-square:not(.qs-empty):not(.qs-disabl
   background-color: var(--square-hover-background);
 }
 
-ionic-datepicker-popover .qs-datepicker .qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover .qs-num {
+ionic-datepicker-popover .qs-datepicker .qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover.qs-num {
   color: var(--square-hover-color);
 }
 
