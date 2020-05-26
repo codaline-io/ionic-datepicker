@@ -46,7 +46,6 @@ export class IonicDatepickerPopover {
   @Prop() min = DEFAULT_MIN();
 
   componentDidLoad() {
-    console.log((window as any).datepicker)
     const date = this.selectedDate ? new Date(this.selectedDate) : null
     this.picker = (window as any).datepicker(this.el, { ...{
       alwaysShow: true,
