@@ -353,10 +353,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@stencil/core@^1.17.1":
-  version "1.17.1"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.17.1.tgz#d6496723a3a1ab8e6af2162843bfb16e6e7e59a0"
-  integrity sha512-1OsRAMP9wo79mmZc4kz2DGnN/hqXLjdrTNGzqXd8K8K/6Mdua3Te+Zb3gmKMGP7ZaIzqIHbWDvCD2XZ4Sb0dFw==
+"@stencil/core@^1.17.2":
+  version "1.17.2"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-1.17.2.tgz#39e04b4f21713bdb25899086da345f5ed31724cf"
+  integrity sha512-jNEpBxoQFk6J1kSmm84AL/qgN0hySmKN5FZ0Pr16RAZU2TwKRLE1W2V8GcJXOFqd3yDVV+/4Fmyl1DD74/zbiQ==
   dependencies:
     typescript "3.9.7"
 
