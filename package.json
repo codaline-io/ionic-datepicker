@@ -24,7 +24,7 @@
     "build:deploy": "yarn build && cp ./src/index.html ./dist && gh-pages -d ./dist"
   },
   "devDependencies": {
-    "@ionic/core": "^5.3.2",
+    "@ionic/core": "^5.3.3",
     "@stencil/core": "^1.17.3",
     "@types/jest": "^24.2.1",
     "@types/puppeteer": "2.0.1",
