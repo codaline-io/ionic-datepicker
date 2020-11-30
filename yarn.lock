@@ -197,10 +197,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ionic/core@^5.5.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.5.0.tgz#2825c6c0a418be2c72037b4a702dfcc6de9c526d"
-  integrity sha512-LHKRQ4kmJN6Z9aqbYajYIQi3CFULjO/UI16frMu2Oc4rx8uewMNPBClAR5Dhy/jSkL3MiIOiuQzLPO4Kyd/zzw==
+"@ionic/core@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.5.1.tgz#82d86ebb96b815aec73bc5b0c45fbefd89a4dc1e"
+  integrity sha512-ytsweRqFeupuVzMJydjh0w0RMjlI+GkHwXQ5SwVuto+cRxA9aKPkcxELzOWYRto3E00jbXFBThGhoL+jNUsK7g==
   dependencies:
     ionicons "^5.1.2"
     tslib "^1.10.0"
