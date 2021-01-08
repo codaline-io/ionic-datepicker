@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Mode, PopoverOptions, } from "@ionic/core";
+import { Mode, PopoverOptions } from "@ionic/core";
 export namespace Components {
     interface IonicDatepicker {
         /**
@@ -47,7 +47,7 @@ export namespace Components {
         /**
           * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'> Default: {}
          */
-        "ionPopoverOptions": Omit<PopoverOptions, "mode" | "component" | "componentProps">;
+        "ionPopoverOptions": Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>;
         /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
@@ -179,7 +179,7 @@ declare namespace LocalJSX {
         /**
           * Change ionic popover options, Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'> Default: {}
          */
-        "ionPopoverOptions"?: Omit<PopoverOptions, "mode" | "component" | "componentProps">;
+        "ionPopoverOptions"?: Omit<PopoverOptions, 'mode' | 'component' | 'componentProps'>;
         /**
           * Max selectable date as iso date|datetime string Default: today + 100 years
          */
