@@ -197,14 +197,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ionic/core@^5.6.1":
-  version "5.6.1"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.6.1.tgz#7bb111c16650f65734247429775394719786ac1c"
-  integrity sha512-3S1fqP4g0uArhKR0fhr+pyaHoISMIlAg+NvjIr8P+dB58yUTPfCcupDHeb5NMPOejDywB8vrz+BAH17DMN0kGQ==
+"@ionic/core@^5.6.3":
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.6.3.tgz#8317059880b96466ea5b441479ff39b1c747ecb7"
+  integrity sha512-RPugxDcCwB5rgEh6yR2QDTzblT8BRBktsW6y+VBt62yHRzgEAENEfVyvkADz+CkGAsmZuPmC8OQC2jJrx/fJFA==
   dependencies:
     "@stencil/core" "^2.4.0"
-    ionicons "^5.5.0"
-    tslib "^1.10.0"
+    ionicons "^5.5.1"
+    tslib "^2.1.0"
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
@@ -365,6 +365,11 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.4.0.tgz#17b45629c8986e35dcbce3f7dab7d64beede83f2"
   integrity sha512-gU6+Yyd6O0KrCSS/O6j8KKqmRo+/Dcs2fI0+APCpbAWK+nqhwDISpdnSEfGDCLMoAC08XOZCycBRk2K1VGnEcg==
+
+"@stencil/core@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.5.0.tgz#4f35f273250242f187fc9d3e4d7d52bed4efce08"
+  integrity sha512-gpoYJEYzu5LV2hr7uPZklug3zXhEbYGKyNodPfmOOYZtO9q42l7RQ3cAnC8MzEoF4jFrfemgtevGik8sqn9ClQ==
 
 "@types/babel__core@^7.1.0":
   version "7.1.7"
@@ -1550,12 +1555,12 @@ invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-ionicons@^5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-5.5.0.tgz#74ab783be11bee60e4351153c80b6d0682e5125a"
-  integrity sha512-0DUHTeoIrGSY+KNyNDaQW7v5+mDstjSkjx8dzT925kXKYBDrN3sGs8kUcSSQbTK132U4CbgDEZkn7FDUa9x8Qw==
+ionicons@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-5.5.1.tgz#c337b2a0871c18910dea5c72384b0f0a393abf15"
+  integrity sha512-1auVisfaXmkmxINer8Q3kJGHP1vSxk86hf7By95eJ+Av9+oBcNuAEBfSe3jaMaGRVxVw8U/2j23MFq7R3c0HPg==
   dependencies:
-    "@stencil/core" "^2.4.0"
+    "@stencil/core" "^2.5.0"
 
 is-accessor-descriptor@^0.1.6:
   version "0.1.6"
@@ -3407,10 +3412,10 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-tslib@^1.10.0:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
-  integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+tslib@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
