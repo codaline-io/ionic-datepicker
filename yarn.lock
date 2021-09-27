@@ -197,10 +197,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ionic/core@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.7.0.tgz#2677fe98c671fd939a1520b90bb7d77b7c542adf"
-  integrity sha512-5GunAeZWDhjbo4/gFCYjA4vXP3V+8PEoGa9C+ZEojurpk7IBuAtI36KalCukrHLPoIbfUCywTXoZubfC1S6lHQ==
+"@ionic/core@^5.8.1":
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.8.1.tgz#9f0b4869d3e7010103b7107b77040e6a55b03cb8"
+  integrity sha512-twAPHhrGMYvHW0NgebMBfN70xDUkFxW+Zcxeus7jrhuJh1uWp/3MwawLi4InCwpyuFQiBo8yAaqC1hB1wTZmLA==
   dependencies:
     "@stencil/core" "^2.4.0"
     ionicons "^5.5.3"
